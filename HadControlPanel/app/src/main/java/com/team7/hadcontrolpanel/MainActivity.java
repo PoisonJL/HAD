@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity{
 
         if (ssid.equals("HAD-device")) {
             Toast.makeText(MainActivity.this, "Successfully connected to the HAD Device!", Toast.LENGTH_LONG).show();
-            //startActivity(new Intent(MainActivity.this, WifiActivity.class));
             this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
         } else {
             ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
