@@ -17,13 +17,16 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="HAD Setup">
+            app:title="HAD Setup"
+            tools:layout_conversion_absoluteHeight="56dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="8dp">
 
         </android.support.v7.widget.Toolbar>
 
@@ -33,7 +36,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </android.support.v4.view.ViewPager>
 
@@ -53,5 +56,13 @@
         android:text="Sync to WiFi"
         app:layout_anchor="@+id/container"
         app:layout_anchorGravity="center" />
+
+    <Button
+        android:id="@+id/TodoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_do_list"
+        app:layout_anchor="@+id/container"
+        app:layout_anchorGravity="left|center|clip_vertical|clip_horizontal|start|end" />
 
 </android.support.design.widget.CoordinatorLayout>

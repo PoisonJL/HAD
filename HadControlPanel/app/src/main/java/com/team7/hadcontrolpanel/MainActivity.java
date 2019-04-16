@@ -1,6 +1,7 @@
 package com.team7.hadcontrolpanel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View.OnClickListener;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +21,8 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
+
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +30,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,9 +48,18 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager mViewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button yourButton = (Button) findViewById(R.id.TodoList);
+
+        yourButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, todolist.class));
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,13 +113,13 @@ public class MainActivity extends AppCompatActivity{
 
         if (ssid.equals("HAD-device")) {
             Toast.makeText(MainActivity.this, "Successfully connected to the HAD Device!", Toast.LENGTH_LONG).show();
+            this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
         } else {
             ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo ni = cm.getActiveNetworkInfo();
             Toast.makeText(MainActivity.this, "IP Address: " + Formatter.formatIpAddress(wi.getIpAddress()), Toast.LENGTH_LONG);
 
         }
-
     }
 
     /**
