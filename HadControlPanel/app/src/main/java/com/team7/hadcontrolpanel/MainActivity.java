@@ -60,6 +60,20 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(MainActivity.this, todolist.class));
             }
         });
+
+
+        Button calenderbutton = (Button) findViewById(R.id.Calender);
+
+        calenderbutton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, calender.class));
+            }
+        });
+
+
+
+
+
         
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
