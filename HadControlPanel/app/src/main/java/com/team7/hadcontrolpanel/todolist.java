@@ -34,41 +34,37 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
     private ArrayAdapter<String> adapter;
 
     private ArrayList<String> itemCounter;
-    //private ArrayAdapter<String> adapterCounter;
 
-
-    Map <Integer, Integer> test;
+    Map<Integer, Integer> test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
         itemET = findViewById(R.id.item_edit_text);
-        btn =findViewById(R.id.add_btn);
-        itemsList=findViewById(R.id.items_list);
-        items = filehelper.readData( this);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items );
-
-        itemCounter = filehelper.readData( this);
-        //adapterCounter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items );
-
+        btn = findViewById(R.id.add_btn);
+        itemsList = findViewById(R.id.items_list);
+        items = filehelper.readData(this);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        itemCounter = filehelper.readData(this);
         itemsList.setAdapter(adapter);
-        btn.setOnClickListener(this );
+        btn.setOnClickListener(this);
         itemsList.setOnItemClickListener(this);
-        test = new HashMap<Integer, Integer>() {{}};
+        test = new HashMap<Integer, Integer>() {{
+        }};
     }
 
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.add_btn:
                 String itemEntered = itemET.getText().toString();
                 adapter.add(itemEntered);
                 itemCounter.add(itemEntered);
                 itemET.setText("");
 
-                filehelper.writeData(items,this);
+                filehelper.writeData(items, this);
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference("ToDo List");
                 key = ref.push().getKey();
@@ -80,6 +76,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
                 break;
         }
     }
+
     private void deleteItem(String itemId) {
         DatabaseReference dItem = FirebaseDatabase.getInstance().getReference("ToDo List").child("Item").child(itemId);
         dItem.removeValue();
@@ -87,13 +84,12 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //fbId++;
         int key = 0;
         String item = items.get(position);
         System.out.println(position);
 
-        for(int i=0; i < itemCounter.size(); i++) {
-            if(itemCounter.get(i).contentEquals(item)) {
+        for (int i = 0; i < itemCounter.size(); i++) {
+            if (itemCounter.get(i).contentEquals(item)) {
                 key = i;
                 System.out.println(key);
             }
@@ -102,28 +98,13 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         adapter.notifyDataSetChanged();
         listCount = adapter.getCount();
 
-        filehelper.writeData(items,this);
+        filehelper.writeData(items, this);
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
-        //key = ref.child("Item").child(String.valueOf(position)).getKey();
-        //System.out.println(key);
 
-        //deleteItem(key);
-        //String key = items.get(position);
         System.out.println(key);
         ref.child("Item").child(String.valueOf(key)).removeValue();
-        //fbId++;
-        //reassignKeys(position);
 
         Toast.makeText(this, "deleted", Toast.LENGTH_SHORT).show();
-    }
-
-    public void reassignKeys(int pos) {
-        for (int i = pos; i <= listCount; i++) {
-            int tempPos = i+1;
-            int tempValue = test.get(tempPos);
-            test.remove(i);
-            test.put(i, tempValue);
-        }
     }
 }

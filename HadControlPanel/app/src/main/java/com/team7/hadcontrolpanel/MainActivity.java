@@ -1,5 +1,6 @@
 package com.team7.hadcontrolpanel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -34,7 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private Button b;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,11 +55,10 @@ public class MainActivity extends AppCompatActivity{
     private DatabaseReference ref;
     String mode;
     int counter;
-    private final String TAG ="SnapshotDatabase";
+    private final String TAG = "SnapshotDatabase";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -66,23 +66,20 @@ public class MainActivity extends AppCompatActivity{
 
         Button yourButton = (Button) findViewById(R.id.TodoList);
 
-        yourButton.setOnClickListener(new OnClickListener(){
-            public void onClick(View v){
+        yourButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, todolist.class));
             }
         });
 
-
         Button calenderbutton = (Button) findViewById(R.id.Calender);
 
-        calenderbutton.setOnClickListener(new OnClickListener(){
-            public void onClick(View v){
+        calenderbutton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, calender.class));
             }
         });
 
-
-        
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counter ++;
+                counter++;
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference("Privacy Mode");
                 if (counter % 2 == 1) {
@@ -105,8 +102,7 @@ public class MainActivity extends AppCompatActivity{
                     mode = "Privacy Mode";
                     Snackbar.make(view, "Entering " + mode, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }
-                else{
+                } else {
                     ref.child("Mode").setValue("Privacy Off");
                     Snackbar.make(view, "Exiting " + mode, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();

@@ -16,12 +16,10 @@ import android.widget.Toast;
 public class calender extends AppCompatActivity {
     CalendarView calendarView;
     TextView myDate;
-//    private TextInputEditText inputTitle;
+    //    private TextInputEditText inputTitle;
 //    private TextInputEditText inputDate;
 //    private TextInputEditText inputTask ;
     Button btnSave;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class calender extends AppCompatActivity {
 //        inputTitle= findViewById(R.id.day);
 //
 //
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
@@ -44,21 +42,19 @@ public class calender extends AppCompatActivity {
             }
         });
 
+        calendarView = (CalendarView) findViewById(R.id.Calenderview);
+        myDate = (TextView) findViewById(R.id.myDate);
 
 
-        calendarView=(CalendarView)findViewById(R.id.Calenderview);
-        myDate=(TextView)findViewById(R.id.myDate);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                String date = (i1 + 1) + "/" + i2 + "/" + i;
+                myDate.setText(date);
 
 
-    calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-        @Override
-        public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-            String date= (i1+1) +"/" + i2 + "/" +i;
-            myDate.setText(date);
-
-
-        }
-    });
+            }
+        });
     }
 //    public void confirmInput(View view)
 //    {
@@ -68,9 +64,6 @@ public class calender extends AppCompatActivity {
 //
 //
 //    }
-
-
-
 
     public void openDialog() {
         DialogBox dialogBox = new DialogBox();

@@ -2,17 +2,14 @@
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-android:orientation="vertical"
+    android:orientation="vertical"
     android:padding="16dp"
-tools:context=".calender">
-
-
-
+    tools:context=".calender">
 
 
     <TextView
@@ -27,7 +24,6 @@ tools:context=".calender">
 
         />
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="300dp"
@@ -41,24 +37,18 @@ tools:context=".calender">
 
         </CalendarView>
 
-
     </LinearLayout>
-
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="title"
-            android:textColorHint=" #FFF"
-
-            />
-
+            android:textColorHint=" #FFF" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -67,13 +57,11 @@ tools:context=".calender">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Day"
             tools:text="@tools:sample/date/ddmmyy" />
-
 
     </android.support.design.widget.TextInputLayout>
 
@@ -82,13 +70,10 @@ tools:context=".calender">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="task"
-            />
-
+            android:hint="task" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -105,16 +90,4 @@ tools:context=".calender">
         android:paddingRight="20dp"
         android:text="Save Your Task!"
         android:textColor="#FFF" />
-
-
-
-
-
-
-
-
-
-
-
-
 </LinearLayout>
