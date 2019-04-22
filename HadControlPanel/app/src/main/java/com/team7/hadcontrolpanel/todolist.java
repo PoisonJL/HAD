@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -25,12 +26,13 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private int itemID = 0;
+    int listCount = 0;
     int fbId = 0;
 
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
 
-    Map<Integer, Integer> test;
+    Map <Integer, Integer> test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         itemsList.setAdapter(adapter);
         btn.setOnClickListener(this );
         itemsList.setOnItemClickListener(this);
+        test = new HashMap<Integer, Integer>() {{}};
     }
 
 
@@ -54,6 +57,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
                 String itemEntered = itemET.getText().toString();
                 adapter.add(itemEntered);
                 itemET.setText("");
+                listCount = adapter.getCount();
 
                 filehelper.writeData(items,this);
                 db = FirebaseDatabase.getInstance();
@@ -62,21 +66,42 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
 
                 itemID++;
                 Toast.makeText(this, "item added", Toast.LENGTH_SHORT).show();
-                //test.put()
+                test.put(listCount, itemID);
                 break;
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        fbId++;
         items.remove(position);
         adapter.notifyDataSetChanged();
+        listCount = adapter.getCount();
 
         filehelper.writeData(items,this);
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
-        ref.child("Item").child(String.valueOf(position)).removeValue();
+        try {
+            ref.child("Item").child(String.valueOf(position)).removeValue();
+            if(listCount > 1) {
+                reassignKeys(position);
+            }
+            else {
+                test.remove(0);
+                ref.child("Item").child(String.valueOf(0)).removeValue();
+            }
+        } catch(Exception ex) {
+            System.out.println("Nothign to delete");
+        }
         Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+    }
+
+    public void reassignKeys(int pos) {
+        for (int i = pos; i <= listCount; i++) {
+            int tempPos = i+1;
+            int tempValue = test.get(tempPos);
+            test.remove(i);
+            test.put(i, tempValue);
+        }
     }
 }
