@@ -4,8 +4,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="alert_dialog_Wifi_Name">WiFi name may not be empty.</string>
     <string name="alert_dialog_Password">Password may not be empty.</string>
-=======
+    =======
 
     <string name="to_do_list">To do List</string>
->>>>>>> f14b2fd89c26369a2b83d30cab4ea5e7642898ae
+    >>>>>>> f14b2fd89c26369a2b83d30cab4ea5e7642898ae
 </resources>
