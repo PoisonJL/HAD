@@ -93,7 +93,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         } catch(Exception ex) {
             System.out.println("Nothign to delete");
         }
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
     }
 
     public void reassignKeys(int pos) {

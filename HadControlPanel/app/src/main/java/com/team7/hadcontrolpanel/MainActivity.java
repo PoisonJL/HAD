@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager mViewPager;
     private FirebaseDatabase db;
     private DatabaseReference ref;
+    String mode;
+    int counter;
     private final String TAG ="SnapshotDatabase";
 
     @Override
@@ -80,9 +82,6 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
-
-
-
         
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,13 +97,25 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                counter ++;
+                db = FirebaseDatabase.getInstance();
+                ref = db.getReference("Privacy Mode");
+                if (counter % 2 == 1) {
+                    ref.child("Mode").setValue("Privacy On");
+                    mode = "Privacy Mode";
+                    Snackbar.make(view, "Entering " + mode, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{
+                    ref.child("Mode").setValue("Privacy Off");
+                    Snackbar.make(view, "Exiting " + mode, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("TestTest");
+        ref = db.getReference("ToDo List");
 
         // Read from the database
         ref.addValueEventListener(new ValueEventListener() {
@@ -112,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = String.valueOf(dataSnapshot.child("Test").getValue());
+                String value = String.valueOf(dataSnapshot.child("Item").getValue());
                 Log.d(TAG, "Value is: " + value);
             }
 
@@ -122,13 +133,7 @@ public class MainActivity extends AppCompatActivity{
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
