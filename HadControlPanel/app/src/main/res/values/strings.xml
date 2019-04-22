@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">HadControlPanel</string>
+    <string name="app_name">Home Ambient Display</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_format">Welcome to Home Ambient Display Application, choose the activity you would like to get start with.</string>
     <string name="alert_dialog_Wifi_Name">WiFi name may not be empty.</string>
     <string name="alert_dialog_Password">Password may not be empty.</string>
     =======
