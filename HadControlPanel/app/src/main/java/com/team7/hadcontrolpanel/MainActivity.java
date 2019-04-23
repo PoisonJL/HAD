@@ -1,6 +1,5 @@
 package com.team7.hadcontrolpanel;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -90,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabPrivacy = (FloatingActionButton) findViewById(R.id.fabPrivacy);
+        fabPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 counter++;

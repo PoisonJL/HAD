@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -41,36 +41,43 @@
     </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabPrivacy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         app:srcCompat="@android:drawable/ic_dialog_alert" />
 
     <Button
         android:id="@+id/btnWifiSync"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="310dp"
+        android:layout_centerHorizontal="true"
         android:onClick="syncWifiClick"
         android:text="Sync to WiFi"
-        app:layout_anchor="@+id/container"
-        app:layout_anchorGravity="center" />
+       />/ app:layout_anchor="@+id/container"
+        //app:layout_anchorGravity="center" />
 
     <Button
         android:id="@+id/TodoList"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
         android:text="To Do List"
-        app:layout_anchor="@+id/container"
-        app:layout_anchorGravity="left|center|clip_vertical|clip_horizontal|start|end" />
+        android:textAlignment="center" />
+        //app:layout_anchor="@+id/container"
+        //app:layout_anchorGravity="center_horizontal|center|clip_vertical|clip_horizontal|start|end" />
 
     <Button
         android:id="@+id/Calender"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="calender"
-        app:layout_anchor="@+id/container"
-        app:layout_anchorGravity="right|center|clip_vertical|clip_horizontal|end" />
+        android:layout_marginTop="370dp"
+        android:layout_centerHorizontal="true"
+        android:text="calender"/>
+        //app:layout_anchor="@+id/container"
+        //app:layout_anchorGravity="right|center|clip_vertical|clip_horizontal|end" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
