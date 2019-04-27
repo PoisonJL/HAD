@@ -25,8 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.team7.hadcontrolpanel.R.string.section_format;
-
 public class MainActivity extends AppCompatActivity {
     private Button b;
     /**
@@ -156,16 +154,8 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-<<<<<<< HEAD
             TextView textView = rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format));
-=======
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-<<<<<<< HEAD
->>>>>>> e35b8f41a79a47b410b851729bb5d19bceff383a
-=======
->>>>>>> e35b8f41a79a47b410b851729bb5d19bceff383a
             return rootView;
         }
     }
