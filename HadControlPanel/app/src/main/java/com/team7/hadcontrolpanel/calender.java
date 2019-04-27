@@ -2,6 +2,7 @@ package com.team7.hadcontrolpanel;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,27 +12,55 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuthException;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Button;
+
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class calender extends AppCompatActivity {
+
+    private EditText title,day,task;
     CalendarView calendarView;
     TextView myDate;
-    //    private TextInputEditText inputTitle;
-//    private TextInputEditText inputDate;
-//    private TextInputEditText inputTask ;
+    DatabaseReference databaseReference;
+
     Button btnSave;
+    private FloatingActionButton floadingactionbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_calender);
         Button btnSave = (Button) findViewById(R.id.btnSave);
 
-//        inputTitle= findViewById(R.id.title);
-//        inputTitle= findViewById(R.id.task);
-//        inputTitle= findViewById(R.id.day);
-//
-//
+        databaseReference =FirebaseDatabase.getInstance().getReference("tasks");
+
+        title =(EditText)findViewById(R.id.title);
+        task=(EditText)findViewById(R.id.task);
+        day=(EditText)findViewById(R.id.day);
+
+
+
+
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +97,10 @@ public class calender extends AppCompatActivity {
     public void openDialog() {
         DialogBox dialogBox = new DialogBox();
         dialogBox.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    public void confirmInput(View view) {
+
+
     }
 }

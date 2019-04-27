@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".calender"></activity>
+        <activity android:name=".DataRetrived"></activity>
+        <activity android:name=".calender" />
         <activity android:name=".todolist" />
         <activity android:name=".WifiActivity" />
         <activity
