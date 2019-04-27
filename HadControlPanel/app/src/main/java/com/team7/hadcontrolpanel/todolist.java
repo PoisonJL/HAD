@@ -27,7 +27,6 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
     private DatabaseReference ref;
     private int itemID = 0;
     int listCount = 0;
-    int fbId = 0;
     String key;
 
     private ArrayList<String> items;
@@ -75,11 +74,6 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
                 test.put(listCount, itemID);
                 break;
         }
-    }
-
-    private void deleteItem(String itemId) {
-        DatabaseReference dItem = FirebaseDatabase.getInstance().getReference("ToDo List").child("Item").child(itemId);
-        dItem.removeValue();
     }
 
     @Override

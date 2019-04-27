@@ -88,7 +88,6 @@
         android:layout_marginLeft="130dp"
         android:layout_marginTop="34dp"
         android:background="@drawable/bg_btn"
-        android:onClick="confirmInput"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Save Your Task!"
