@@ -22,7 +22,7 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="HAD Setup"
+            app:title="Welcome to HAD"
             tools:layout_conversion_absoluteHeight="56dp"
             tools:layout_conversion_absoluteWidth="411dp"
             tools:layout_editor_absoluteX="0dp"
@@ -49,22 +49,20 @@
         app:srcCompat="@android:drawable/ic_dialog_alert" />
 
     <Button
-        android:id="@+id/btnWifiSync"
+        android:id="@+id/btnParing"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="310dp"
         android:layout_centerHorizontal="true"
-        android:onClick="syncWifiClick"
-        android:text="Sync to WiFi"
-       />/ app:layout_anchor="@+id/container"
-        //app:layout_anchorGravity="center" />
+        android:layout_marginTop="250dp"
+        android:onClick="onParingBTClick"
+        android:text="Paring with HAD" />
 
     <Button
         android:id="@+id/TodoList"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="310dp"
         android:text="To Do List"
         android:textAlignment="center" />
         //app:layout_anchor="@+id/container"

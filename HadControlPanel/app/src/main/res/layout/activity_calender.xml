@@ -58,6 +58,7 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/textDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Day"
@@ -90,4 +91,5 @@
         android:paddingRight="20dp"
         android:text="Save Your Task!"
         android:textColor="#FFF" />
+
 </LinearLayout>

@@ -1,11 +1,6 @@
 package com.team7.hadcontrolpanel;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,17 +10,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import static com.team7.hadcontrolpanel.R.string.section_format;
 
 public class MainActivity extends AppCompatActivity {
     private Button b;
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
-        Button yourButton = (Button) findViewById(R.id.TodoList);
+        Button yourButton = findViewById(R.id.TodoList);
 
         yourButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -71,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button calenderbutton = (Button) findViewById(R.id.Calender);
+        Button calenderbutton = findViewById(R.id.Calender);
 
         calenderbutton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -79,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         FloatingActionButton fabPrivacy = (FloatingActionButton) findViewById(R.id.fabPrivacy);
@@ -130,43 +123,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void syncWifiClick(View v) {
-        Button wifiBtn = (Button) v;
-        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wi = wm.getConnectionInfo();
-        String ssid = wi.getSSID().replace("\"", "");
-
-        if (ssid.equals("HAD-device")) {
-            Toast.makeText(MainActivity.this, "Successfully connected to the HAD Device!", Toast.LENGTH_LONG).show();
+    public void onParingBTClick(View v) {
             this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
-        } else {
-            ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = cm.getActiveNetworkInfo();
-            Toast.makeText(MainActivity.this, "IP Address: " + Formatter.formatIpAddress(wi.getIpAddress()), Toast.LENGTH_LONG);
-
-        }
     }
 
     /**
@@ -198,8 +156,16 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+<<<<<<< HEAD
+            TextView textView = rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format));
+=======
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+<<<<<<< HEAD
+>>>>>>> e35b8f41a79a47b410b851729bb5d19bceff383a
+=======
+>>>>>>> e35b8f41a79a47b410b851729bb5d19bceff383a
             return rootView;
         }
     }

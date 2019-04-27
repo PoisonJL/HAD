@@ -27,8 +27,12 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -36,11 +40,11 @@ import org.json.JSONObject;
 
 public class WifiActivity extends AppCompatActivity {
     String wifi, password;
-
     EditText wifiInput;
     EditText passInput;
-
     Button btnCancel, btnConnect;
+    private FirebaseDatabase db;
+    private DatabaseReference ref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,20 +52,25 @@ public class WifiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wifi);
         //setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        wifiInput = (EditText) findViewById(R.id.wifiInput);
-        passInput = (EditText) findViewById(R.id.passInput);
+        wifiInput = findViewById(R.id.wifiInput);
+        passInput = findViewById(R.id.passInput);
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnConnect = (Button) findViewById(R.id.btnConnect);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnConnect = findViewById(R.id.btnConnect);
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wifi = wifiInput.getText().toString();
                 password = passInput.getText().toString();
+                db = FirebaseDatabase.getInstance();
+                ref = db.getReference("WiFi Credential");
 
                 showToast(wifi);
                 showToast(password);
+
+                ref.child("SSID").setValue(wifi);
+                ref.child("PASSWORD").setValue(password);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
