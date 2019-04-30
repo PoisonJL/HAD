@@ -1,11 +1,13 @@
-# Make sure that you use pip3 and download the libraries if you haven't already!
-
 from guizero import *
-from datetime import *
+from datetime import datetime, time
+#from tkinter import Label, PhotoImage
+#from PIL import Image, ImageTk
 import pyrebase
 import socket
 import requests
 import json
+import time
+import subprocess
 
 # Initial Setup Region
 
@@ -14,6 +16,10 @@ import json
 def noquote(s):
     return s
 pyrebase.pyrebase.quote = noquote
+
+print(system_config.supported_image_types)
+
+subprocess.call(['./checkWiFi.sh'])
 
 # Get current device IP address
 testIP = "8.8.8.8"
@@ -51,12 +57,15 @@ print(foreLink)
 foreReq = requests.get(foreLink)
 foreData = json.loads(foreReq.text)
 
+weatLink = "http://api.openweathermap.org/data/2.5/weather?lat="+str(lat)+"&lon="+str(long)+"&units="+units+"&appid=39177e03ec521ba7e70353e7e3d960ee"
+print(weatLink)
+weatReq = requests.get(weatLink)
+weatData = json.loads(weatReq.text)
 
 def updateTime():
     currentDtTxt.clear()
     curDt = datetime.now()
     currentDtTxt.append("Welcome " + str(checkName()) + "!\n\n It is: " + curDt.strftime("%m-%d-%Y %I:%M %p"))
-    currentDtTxt.append("\n\n")
     currentDtTxt.after(1000, updateTime)
 
 def privacyMask():
@@ -93,7 +102,25 @@ def privacyCalMask():
     if calBox.visible == True:
         calTxt.after(2000, privacyCalMask)
 
-#def weatherInfo():
+def weatherInfo():
+    global weatData
+    global wthrPic
+    global curDt
+    isNight = False
+    curTemp = weatData['main']['temp']
+    curMaxTmp = weatData['main']['temp_max']
+    curMinTmp = weatData['main']['temp_min']
+    curCondType = weatData['weather'][0]['main']
+    curCond = weatData['weather'][0]['description']
+    if curDt.hour >= 21 or curDt.hour <= 6:
+        isNight = True
+    else:
+        isNight = False
+    wthrTxt.clear()
+    wthrTxt.append("  " + curCond + "\n\n")
+    wthrTxt.append("  Temp:" + str(round(curTemp, 0)) + "\n\n")
+    wthrTxt.append("  High: " + str(round(curMaxTmp, 0)) + "\n\n")
+    wthrTxt.append("  Low: " + str(round(curMinTmp, 0)) + "\n\n")
     
 
 def checkName():
@@ -117,6 +144,7 @@ def switchView():
         todoBox.visible = False
         calBox.visible = False
         wthrBox.visible = True
+        weatherInfo()
         print("Weather Accessed")
         wthrBox.after(10000, switchView)
     else:
@@ -126,6 +154,18 @@ def switchView():
         privacyMask()
         print("To-Do Accessed")
         todoBox.after(10000, switchView)
+
+#def testView():
+#    global imgStr
+#    if imgStr == "none" or imgStr == "weather/brokenclouds-day.jpg":
+#        imgStr = "weather/brokenclouds-night.jpg"
+#    else:
+#        imgStr = "weather/brokenclouds-day.jpg"
+#    global pic
+#    pic.value = imgStr
+#    pic.resize(200,200)
+#    picBox.after(5000, testView)
+    
 
 # Configuration region (set up all configs for logic here)
 
@@ -142,31 +182,37 @@ db = firebase.database();
 
 # End Configuration
 
-app = App(title = "HAD Display", layout = "auto")
+app = App(title = "HAD Display")
 app.set_full_screen()
 baseBox = Box(app, width = "fill", height = "fill")
 emptyTxt = Text(baseBox, text = "\n")
 curDt = datetime.now()
 currentDtTxt = Text(baseBox, text = "Welcome " + str(checkName()) + "!\n\n It is: " + curDt.strftime("%m-%d-%Y %I:%M %p"), size = 30)
-currentDtTxt.append("\n\n")
 currentDtTxt.after(1000, updateTime)
 
 # To-Do View
 todoBox = Box(baseBox, width = "fill", height = "fill")
-todoTitle = Text(todoBox, text = "Here are the things you need to do:\n", size = 40)
+todoTitle = Text(todoBox, text = "\nHere are the things you need to do:\n", size = 40)
 todoTxt = Text(todoBox, text = "", size = 30)
 todoBox.visible = False
 
 # Calendar View
 calBox = Box(baseBox, width = "fill", height = "fill")
-calTitle = Text(calBox, text = "Here are some of the upcoming events you have:\n", size = 40)
+calTitle = Text(calBox, text = "\nHere are some of the upcoming events you have:\n", size = 40)
 calTxt = Text(calBox, text = "Nah Fam", size = 30)
 calBox.visible = False
 
 # Weather view
 wthrBox = Box(baseBox, width = "fill", height = "fill")
-wthrTitle = Text(wthrBox, text = "Today's weather calls for:\n", size = 40)
-wthrTxt = Text(wthrBox, text = "Test", size = 30)
+wthrTitle = Text(wthrBox, text = "\nToday's weather", size = 40)
+wthrInBox = Box(wthrBox, layout = "grid", width = "fill", height = "fill")
+imgStr = "weather/thunderstorm-night.jpg"
+weatherFile = imgStr.split("/")[1]
+weatherTxt = weatherFile.split(".")[0]
+wthrPic = Picture(wthrInBox, image = imgStr, grid = [0,0], align = "left")
+wthrPic.resize(1200, 650)
+wthrTxt = Text(wthrInBox, text = "  " + weatherTxt + "\n\n  Temp: 75\n\n  High: 77\n\n  Low: 66\n\n", size = 30, grid = [2,0], align = "right")
 wthrBox.visible = False
 switchView()
+#testView()
 app.display()
