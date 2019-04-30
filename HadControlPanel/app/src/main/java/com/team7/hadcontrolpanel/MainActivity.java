@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String getWifiName(Context context) {
         db = FirebaseDatabase.getInstance();
-        ref = db.getReference("SSID");
+        ref = db.getReference("Connected WiFi");
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager.isWifiEnabled()) {
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
