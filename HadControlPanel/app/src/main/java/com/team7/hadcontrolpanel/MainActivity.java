@@ -1,6 +1,10 @@
 package com.team7.hadcontrolpanel;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private Button b;
+    String ssid, MacAddress;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -55,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         Button yourButton = findViewById(R.id.TodoList);
-
         yourButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, todolist.class));
@@ -121,8 +127,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void onParingBTClick(View v) {
-            this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
+    public void onConnectingWiFiClick(View v) {
+        this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
+    }
+    public void onGetWiFiInfoClick(View v) {
+        getWifiName(this);
     }
 
     /**
@@ -182,5 +191,27 @@ public class MainActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+    }
+
+    public String getWifiName(Context context) {
+        db = FirebaseDatabase.getInstance();
+        ref = db.getReference("SSID");
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager.isWifiEnabled()) {
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            if (wifiInfo != null) {
+                NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
+                if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
+                    ssid = wifiInfo.getSSID();
+                    MacAddress = wifiInfo.getMacAddress();
+                    ref.child("SSID").setValue(ssid);
+                    ref.child("MAC Address").setValue(MacAddress);
+                    Toast.makeText(this, "SSID: " + ssid+ " MAC Address: " + MacAddress, Toast.LENGTH_SHORT).show();
+                    return wifiInfo.getSSID();
+                }
+            }
+        }
+
+        return null;
     }
 }
