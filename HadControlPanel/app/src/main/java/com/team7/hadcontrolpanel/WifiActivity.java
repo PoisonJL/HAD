@@ -36,6 +36,7 @@ public class WifiActivity extends AppCompatActivity {
     String sshPassword = "haddevice";
     String hostname = "192.168.1.152";
     int port = 22;
+    int wifiID = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,11 @@ public class WifiActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                wifiID++;
                 wifi = wifiInput.getText().toString();
                 password = passInput.getText().toString();
                 db = FirebaseDatabase.getInstance();
-                ref = db.getReference("WiFi Credential");
+                ref = db.getReference("WiFi Credential").child(String.valueOf(wifiID));
 
                 showToast(wifi);
                 showToast(password);
