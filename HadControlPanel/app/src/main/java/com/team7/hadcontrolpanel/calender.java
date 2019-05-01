@@ -72,9 +72,7 @@ public class calender extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openDialog();
-
                 addTasks();
-
             }
         });
 
