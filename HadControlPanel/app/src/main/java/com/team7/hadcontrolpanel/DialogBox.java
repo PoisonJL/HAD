@@ -8,11 +8,18 @@ import android.support.v7.app.AppCompatDialogFragment;
 
 public class DialogBox extends AppCompatDialogFragment {
 
+    private String title, message;
+
+    public DialogBox (String title, String message) {
+        this.title = title;
+        this.message = message;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle SavedInstanceSate) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Information")
-                .setMessage("Item has been saved")
+        builder.setTitle(title)
+                .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

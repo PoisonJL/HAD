@@ -12,16 +12,8 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
-import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 
@@ -98,7 +90,7 @@ public class calender extends AppCompatActivity {
 
 
     public void openDialog() {
-        DialogBox dialogBox = new DialogBox();
+        DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
 
@@ -129,15 +121,4 @@ public void addTasks(){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
 }

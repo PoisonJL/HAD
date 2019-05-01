@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
-                    ssid = wifiInfo.getSSID();
+                    ssid = wifiInfo.getSSID().replace("\"", "");
                     MacAddress = wifiInfo.getMacAddress();
                     ref.child("SSID").setValue(ssid);
                     ref.child("MAC Address").setValue(MacAddress);
