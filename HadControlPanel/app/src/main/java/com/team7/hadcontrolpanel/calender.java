@@ -24,7 +24,7 @@ public class calender extends AppCompatActivity {
     private TextInputEditText inputTitle;
     private EditText inputDay;
     private EditText  inputTask;
-    private FloatingActionButton floatingActionButton1;
+    private FloatingActionButton viewCal;
 
     Button btnSave;
 
@@ -36,9 +36,9 @@ public class calender extends AppCompatActivity {
 
 
         databaseReference= FirebaseDatabase.getInstance().getReference("Tasks");
-        floatingActionButton1 =findViewById(R.id.floatingActionButton1);
+        viewCal =findViewById(R.id.viewCal);
 
-        floatingActionButton1.setOnClickListener(new View.OnClickListener(){
+        viewCal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent t = new Intent(calender.this, DataRetrived.class);
