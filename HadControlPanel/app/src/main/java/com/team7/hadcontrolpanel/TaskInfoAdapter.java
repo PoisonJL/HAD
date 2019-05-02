@@ -22,7 +22,6 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         super(context,R.layout.list_view,tasksList);
         this.context =context;
         this.tasksList=tasksList;
-
     }
 
     @NonNull
@@ -31,18 +30,16 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         LayoutInflater inflater =context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.list_view ,null,true);
 
-
-        TextView dayName=(TextView)listView.findViewById(R.id.txtDay);
-        TextView taskName=(TextView)listView.findViewById(R.id.txtTask);
-        TextView titlName=(TextView)listView.findViewById(R.id.txtTitle);
+        TextView dayName = (TextView)listView.findViewById(R.id.txtDay);
+        TextView taskName =(TextView)listView.findViewById(R.id.txtTask);
+        TextView titlName = (TextView)listView.findViewById(R.id.txtTitle);
 
         CalTask task1= tasksList.get(position);
         taskName.setText(task1.gettaskname());
-        dayName.setText(task1.gettaskname());
+        dayName.setText(task1.getdayname());
         titlName.setText(task1.gettitlename());
 
         return listView;
-
     }
 }
 

@@ -35,7 +35,7 @@ public class calender extends AppCompatActivity {
         Button btnSave = (Button) findViewById(R.id.btnSave);
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("tasks");
+        databaseReference= FirebaseDatabase.getInstance().getReference("Tasks");
         floatingActionButton1 =findViewById(R.id.floatingActionButton1);
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener(){
@@ -45,77 +45,52 @@ public class calender extends AppCompatActivity {
                 //startActivity(new Intent(calender.this, DataRetrived.class));
                 startActivity(t);
             }
+        });
 
-
-        }
-        ) ;
-        inputTitle =findViewById(R.id.txtTitle);
-        inputDay =(EditText)findViewById(R.id.txtDay);
-        inputTask =(EditText)findViewById(R.id.txtTask);
-
-
-
-
+        inputTitle = findViewById(R.id.txtTitle);
+        inputDay = (EditText)findViewById(R.id.txtDay);
+        inputTask = (EditText)findViewById(R.id.txtTask);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDialog();
-
                 addTasks();
-
             }
         });
 
         calendarView = (CalendarView) findViewById(R.id.Calenderview);
         myDate = (TextView) findViewById(R.id.myDate);
 
-
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 String date = (i1 + 1) + "/" + i2 + "/" + i;
                 myDate.setText(date);
-
-
+                inputDay.setText(date);
             }
         });
     }
-
-
-
-
 
     public void openDialog() {
         DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
 
+    public void addTasks(){
+        String titleName = inputTitle.getText().toString();
+        String dayName = inputDay.getText().toString();
+        String taskName = inputTask.getText().toString();
 
+        if(!TextUtils.isEmpty(titleName)&& !TextUtils.isEmpty((taskName))) {
 
+            String id = databaseReference.push().getKey();
 
-public void addTasks(){
-
-
-
-            String titleName = inputTitle.getText().toString();
-             String dayName = inputDay.getText().toString();
-            String  taskName = inputTask.getText().toString();
-
-        if(!TextUtils.isEmpty(titleName)&& !TextUtils.isEmpty((taskName)))
-    {
-
-        String id=databaseReference.push().getKey();
-
-        CalTask tasks =new CalTask( id, taskName,  titleName,  dayName);
-        databaseReference.child(id).setValue(tasks);
-        inputTitle.setText(" ");
-        inputDay.setText(" ");
-        inputTask.setText(" ");
-
-
+            CalTask tasks = new CalTask(id, taskName,  titleName,  dayName);
+            databaseReference.child(id).setValue(tasks);
+            inputTitle.setText(" ");
+            inputDay.setText(" ");
+            inputTask.setText(" ");
+        }
     }
-
-
-}
 }

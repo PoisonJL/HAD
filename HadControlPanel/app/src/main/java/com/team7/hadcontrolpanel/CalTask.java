@@ -7,11 +7,10 @@ public class CalTask {
     private String dayname;
 
     public CalTask(){
-        this.taskID = "";
-        this.taskname = "";
-        this.titlename = "";
-        this.dayname = "";
-
+        this.taskID = " ";
+        this.taskname = " ";
+        this.titlename = " ";
+        this.dayname = " ";
     }
 
     public CalTask(String taskID, String taskname, String titlename, String dayname) {
@@ -19,7 +18,6 @@ public class CalTask {
         this.taskname = taskname;
         this.titlename = titlename;
         this.dayname = dayname;
-
     }
 
     public CalTask(CalTask orig) {
@@ -45,9 +43,6 @@ public class CalTask {
     {
         return dayname;
     }
-
-
-
 }
 
 
