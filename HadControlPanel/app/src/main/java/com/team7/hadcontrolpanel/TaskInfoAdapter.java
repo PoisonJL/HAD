@@ -42,7 +42,3 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         return listView;
     }
 }
-
-
-
-

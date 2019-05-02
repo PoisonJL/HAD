@@ -1,7 +1,6 @@
 package com.team7.hadcontrolpanel;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -112,8 +111,7 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         CalTask ct = new CalTask(id, task, title, date);
         databaseReference.setValue(ct);
-        Toast.makeText(this, "Task Updated Successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Calendar Updated Successfully", Toast.LENGTH_LONG).show();
         return true;
     }
 }
-
