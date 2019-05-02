@@ -31,7 +31,6 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
 
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
-
     private ArrayList<String> itemCounter;
 
     Map<Integer, Integer> test;

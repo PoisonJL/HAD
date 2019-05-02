@@ -22,8 +22,8 @@ public class calender extends AppCompatActivity {
     TextView myDate;
     DatabaseReference databaseReference;
     private TextInputEditText inputTitle;
-    private  EditText inputDay;
-    private EditText  inputTask ;
+    private EditText inputDay;
+    private EditText  inputTask;
     private FloatingActionButton floatingActionButton1;
 
     Button btnSave;
