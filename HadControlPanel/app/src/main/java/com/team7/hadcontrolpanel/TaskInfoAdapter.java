@@ -15,17 +15,11 @@ import java.util.List;
 
 public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
 
-
-
-
     private Activity context;
     private List<CalTask>tasksList;
 
-
-
-
     public TaskInfoAdapter(Activity context, List<CalTask>tasksList){
-        super(context,R.layout.activity_calender,tasksList);
+        super(context,R.layout.list_view,tasksList);
         this.context =context;
         this.tasksList=tasksList;
 
@@ -35,19 +29,17 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater =context.getLayoutInflater();
-        View listView = inflater.inflate(R.layout.activity_calender,null,true);
+        View listView = inflater.inflate(R.layout.list_view ,null,true);
 
 
-        TextView dayName=(TextView)listView.findViewById(R.id.day);
-        TextView taskName=(TextView)listView.findViewById(R.id.task);
-        TextView titlName=(TextView)listView.findViewById(R.id.title);
+        TextView dayName=(TextView)listView.findViewById(R.id.txtDay);
+        TextView taskName=(TextView)listView.findViewById(R.id.txtTask);
+        TextView titlName=(TextView)listView.findViewById(R.id.txtTitle);
 
-        CalTask calTask1= tasksList.get(position);
-        taskName.setText(calTask1.getdayname());
-        dayName.setText(calTask1.getdayname());
-        titlName.setText(calTask1.gettitlename());
-
-
+        CalTask task1= tasksList.get(position);
+        taskName.setText(task1.gettaskname());
+        dayName.setText(task1.gettaskname());
+        titlName.setText(task1.gettitlename());
 
         return listView;
 

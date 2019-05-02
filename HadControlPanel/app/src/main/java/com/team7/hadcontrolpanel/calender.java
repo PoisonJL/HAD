@@ -26,11 +26,6 @@ public class calender extends AppCompatActivity {
     private EditText  inputTask ;
     private FloatingActionButton floatingActionButton1;
 
-
-
-
-
-
     Button btnSave;
 
     @Override
@@ -46,7 +41,9 @@ public class calender extends AppCompatActivity {
         floatingActionButton1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                startActivity(new Intent(calender.this, DataRetrived.class));
+                Intent t = new Intent(calender.this, DataRetrived.class);
+                //startActivity(new Intent(calender.this, DataRetrived.class));
+                startActivity(t);
             }
 
 

@@ -18,20 +18,19 @@ public class DataRetrived extends AppCompatActivity {
 
     private ListView listView;
     DatabaseReference databaseReference;
-    List<CalTask> tasksList;
+    List<CalTask> calTasksList;
 
 
 
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_retrived);
         listView =findViewById(R.id.list_view);
 
-       // databaseReference = FirebaseDatabase.getInstance(s:"day")
         databaseReference =FirebaseDatabase.getInstance().getReference("tasks");
 
-        tasksList =new ArrayList<>();
+        calTasksList =new ArrayList<>();
 
     }
 
@@ -41,13 +40,13 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot ts : dataSnapshot.getChildren()) {
 
-                    CalTask task = taskSnapshot.getValue(CalTask.class);
-                    tasksList.add(task);
+                    CalTask ct = ts.getValue(CalTask.class);
+                    calTasksList.add(ct);
 
                 }
-                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrived.this, tasksList);
+                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrived.this, calTasksList);
                 listView.setAdapter(taskInfoAdapter);
             }
 
@@ -63,4 +62,18 @@ public class DataRetrived extends AppCompatActivity {
 
 
     }
+
+
+    protected void update()
+    {
+
+
+
+
+    }
+
+
+
+
+
 }
