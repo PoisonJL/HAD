@@ -41,7 +41,7 @@
         android:layout_marginTop="75dp"
         android:layout_marginEnd="33dp"
         android:ems="10"
-        android:hint="WiFi Username"
+        android:hint="WiFi Name"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

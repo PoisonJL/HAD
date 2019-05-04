@@ -10,16 +10,11 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.ObjectOutputStream;
 
-
-
 public class filehelper {
-
-
     public static final String FILENAME ="listinfo.dat";
 
     public static void writeData(ArrayList<String> items, Context context){
         try {
-
             FileOutputStream fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             oos.writeObject(items);
@@ -29,8 +24,6 @@ public class filehelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static ArrayList<String> readData(Context context) {
@@ -40,10 +33,7 @@ public class filehelper {
             ObjectInputStream ois = new ObjectInputStream(fis);
             itemList =  (ArrayList<String>) ois.readObject();
         } catch (FileNotFoundException e) {
-
-
             itemList=new ArrayList<>();
-
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,14 +41,5 @@ public class filehelper {
             e.printStackTrace();
         }
         return itemList;
-
     }
-
 }
-
-
-
-
-
-
-

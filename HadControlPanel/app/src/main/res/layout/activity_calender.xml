@@ -48,7 +48,7 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="title"
+            android:hint="Title"
             android:textColorHint=" #FFF" />
 
     </android.support.design.widget.TextInputLayout>
@@ -62,7 +62,7 @@
             android:id="@+id/txtDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Day"
+            android:hint="Select a Date"
             tools:text="@tools:sample/date/ddmmyy" />
 
     </android.support.design.widget.TextInputLayout>
@@ -76,29 +76,29 @@
             android:id="@+id/txtTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="task" />
+            android:hint="Task" />
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btnSave"
 
-        android:layout_width="wrap_content"
+        android:layout_width="152dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="34dp"
         android:background="@drawable/bg_btn"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:text="Save Your Task!"
         android:textColor="#FFF" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton1"
+        android:id="@+id/viewCal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:srcCompat="@android:drawable/radiobutton_off_background" />
+        android:visibility="visible"
+        app:fabSize="auto"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
 
 </LinearLayout>

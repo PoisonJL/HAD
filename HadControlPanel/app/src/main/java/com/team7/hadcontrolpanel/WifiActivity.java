@@ -32,11 +32,11 @@ public class WifiActivity extends AppCompatActivity {
     private DatabaseReference ref;
 
     // Make the login changes here
-    String username = "pi";
-    String sshPassword = "haddevice";
-    String hostname = "192.168.1.152";
+    String username = "jl041";
+    String sshPassword = "Jia0214.";
+    String hostname = "turing.csce.uark.edu";
     int port = 22;
-    int wifiID = 0;
+    String wifiID = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,17 +50,19 @@ public class WifiActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wifiID++;
                 wifi = wifiInput.getText().toString();
                 password = passInput.getText().toString();
                 db = FirebaseDatabase.getInstance();
-                ref = db.getReference("WiFi Credential").child(String.valueOf(wifiID));
+                ref = db.getReference("WiFi Credential").push();
 
-                showToast(wifi);
-                showToast(password);
+                showToast("SSID: " + wifi + "\n" + "Password: " + password);
 
                 ref.child("SSID").setValue(wifi);
                 ref.child("PASSWORD").setValue(password);
+
+                wifiInput.setText("");
+                passInput.setText("");
+
                 new AsyncTask<Integer, Void, Void>() {
                     @SuppressLint("WrongThread")
                     @Override
