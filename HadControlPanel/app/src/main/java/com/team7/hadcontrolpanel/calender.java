@@ -16,8 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-
+//calender class
 public class calender extends AppCompatActivity {
+    //declear variales
     CalendarView calendarView;
     TextView myDate;
     DatabaseReference databaseReference;
@@ -25,7 +26,7 @@ public class calender extends AppCompatActivity {
     private EditText inputDay;
     private EditText  inputTask;
     private FloatingActionButton viewCal;
-
+    //Button
     Button btnSave;
 
     @Override
@@ -62,6 +63,7 @@ public class calender extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.Calenderview);
         myDate = (TextView) findViewById(R.id.myDate);
 
+        //when it is long clicked
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -71,12 +73,12 @@ public class calender extends AppCompatActivity {
             }
         });
     }
-
+    //open new dialog
     public void openDialog() {
         DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
-
+        //add task
     public void addTasks(){
         String titleName = inputTitle.getText().toString();
         String dayName = inputDay.getText().toString();

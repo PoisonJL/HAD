@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //get wifi name
     public String getWifiName(Context context) {
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Connected WiFi");

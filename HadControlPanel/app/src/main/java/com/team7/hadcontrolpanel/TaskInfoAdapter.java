@@ -13,8 +13,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+
+/**
+ *public class extend from array adapter
+ */
 public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
 
+
+    //declear variablbes
     private Activity context;
     private List<CalTask>tasksList;
 
@@ -24,6 +30,8 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         this.tasksList=tasksList;
     }
 
+
+    // get view
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

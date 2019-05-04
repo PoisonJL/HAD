@@ -29,12 +29,16 @@ import java.util.List;
 
 public class DataRetrived extends AppCompatActivity {
 
+    //declare variables
     private ListView listView;
     DatabaseReference databaseReference;
     List<CalTask> calTasksList;
     private TaskInfoAdapter adapter;
 
 
+    /**
+     *when the programs is created
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class DataRetrived extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         calTasksList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks");
+        // clear new array
         calTasksList = new ArrayList<>();
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -53,7 +58,9 @@ public class DataRetrived extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     *when the program is started
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -75,6 +82,10 @@ public class DataRetrived extends AppCompatActivity {
         });
     }
 
+
+    /**
+     *show the update dialog when it is clicked
+     */
     private void showUpdateDialog(String taskID, String task, String title, String date) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -110,6 +121,10 @@ public class DataRetrived extends AppCompatActivity {
         });
     }
 
+
+    /**
+     *update calender
+     */
     private boolean updateCalendar(String id, String task, String title, String date) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         CalTask ct = new CalTask(id, task, title, date);
