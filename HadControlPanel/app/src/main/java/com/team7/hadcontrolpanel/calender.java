@@ -43,7 +43,6 @@ public class calender extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent t = new Intent(calender.this, DataRetrived.class);
-                //startActivity(new Intent(calender.this, DataRetrived.class));
                 startActivity(t);
             }
         });
@@ -60,6 +59,7 @@ public class calender extends AppCompatActivity {
             }
         });
 
+        //set calender view by id
         calendarView = (CalendarView) findViewById(R.id.Calenderview);
         myDate = (TextView) findViewById(R.id.myDate);
 

@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+//public class DataRetrived
 public class DataRetrived extends AppCompatActivity {
 
     //declare variables
@@ -42,7 +43,7 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks");
         // clear new array
         calTasksList = new ArrayList<>();
-
+        // whenever this list is long clicked.
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,7 +62,9 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                calTasksList.clear();
                 for (DataSnapshot ts : dataSnapshot.getChildren()) {
+                    //
                     CalTask ct = ts.getValue(CalTask.class);
                     calTasksList.add(ct);
                 }
@@ -92,6 +95,10 @@ public class DataRetrived extends AppCompatActivity {
         final EditText editTextDate = (EditText) dialogView.findViewById(R.id.editTextDate);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.btnUpdate);
 
+        editTextTask.setText(task);
+        editTextDate.setText(date);
+        editTextTitle.setText(title);
+
         dialogBuilder.setTitle("Updating Title: " + title);
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -109,8 +116,8 @@ public class DataRetrived extends AppCompatActivity {
                 }
                 updateCalendar(taskID, title, task, date);
                 alertDialog.dismiss();
-                finish();
-                startActivity(getIntent());
+//                finish();
+//                startActivity(getIntent());
             }
         });
     }

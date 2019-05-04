@@ -18,8 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *to do list
@@ -42,9 +40,6 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
     private ArrayAdapter<String> adapter;
     private ArrayList<String> itemCounter;
 
-    Map<Integer, Integer> test;
-
-
     //when the programs starts it will do this
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +54,6 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         itemsList.setAdapter(adapter);
         btn.setOnClickListener(this);
         itemsList.setOnItemClickListener(this);
-        test = new HashMap<Integer, Integer>() {{
-        }};
     }
 
     // when it is clicked
@@ -73,7 +66,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
                 itemCounter.add(itemEntered);
                 itemET.setText("");
 
-                filehelper.writeData(items, this);
+                //filehelper.writeData(items, this);
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference("ToDo List");
                 key = ref.push().getKey();
@@ -81,11 +74,31 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
 
                 itemID++;
                 Toast.makeText(this, "item added", Toast.LENGTH_SHORT).show();
-                test.put(listCount, itemID);
                 break;
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        db = FirebaseDatabase.getInstance();
+        ref = db.getReference("ToDo List").child("Item");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    String item = childSnapshot.getValue().toString();
+                    items.add(item);
+                }
+                itemsList.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     //when item is clicked
     @Override

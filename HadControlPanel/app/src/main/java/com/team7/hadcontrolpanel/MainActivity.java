@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Button yourButton = findViewById(R.id.TodoList);
         yourButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, todolist.class));
+                startActivity(new Intent(MainActivity.this, TodoItem.class));
             }
         });
 
