@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //call firebase
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
 
