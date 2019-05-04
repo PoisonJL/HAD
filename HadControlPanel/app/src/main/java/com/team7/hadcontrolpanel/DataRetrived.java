@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+//public class DataRetrived
 public class DataRetrived extends AppCompatActivity {
 
     //declare variables
@@ -48,7 +49,7 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks");
         // clear new array
         calTasksList = new ArrayList<>();
-
+        // whenever this list is long clicked.
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +69,7 @@ public class DataRetrived extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ts : dataSnapshot.getChildren()) {
+                    //
                     CalTask ct = ts.getValue(CalTask.class);
                     calTasksList.add(ct);
                 }

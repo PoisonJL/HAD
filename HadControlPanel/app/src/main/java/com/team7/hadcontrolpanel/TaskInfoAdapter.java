@@ -24,6 +24,9 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
     private Activity context;
     private List<CalTask>tasksList;
 
+    /**
+     *Constructor, takes list of tasks and context
+     */
     public TaskInfoAdapter(Activity context, List<CalTask>tasksList){
         super(context,R.layout.list_view,tasksList);
         this.context =context;
@@ -38,10 +41,12 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         LayoutInflater inflater =context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.list_view ,null,true);
 
+        //get the varaibles y ID
         TextView dayName = (TextView)listView.findViewById(R.id.txtDay);
         TextView taskName =(TextView)listView.findViewById(R.id.txtTask);
         TextView titlName = (TextView)listView.findViewById(R.id.txtTitle);
 
+        //set variales
         CalTask task1= tasksList.get(position);
         taskName.setText(task1.gettaskname());
         dayName.setText(task1.getdayname());

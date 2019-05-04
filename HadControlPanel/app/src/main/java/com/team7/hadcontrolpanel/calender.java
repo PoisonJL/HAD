@@ -60,6 +60,7 @@ public class calender extends AppCompatActivity {
             }
         });
 
+        //set calender view by id
         calendarView = (CalendarView) findViewById(R.id.Calenderview);
         myDate = (TextView) findViewById(R.id.myDate);
 

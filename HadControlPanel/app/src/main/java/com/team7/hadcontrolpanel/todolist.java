@@ -22,10 +22,11 @@ import java.util.Map;
  */
 public class todolist extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    //declear variables
+    //declare variables
     private EditText itemET;
     private Button btn;
     private ListView itemsList;
+    //set up firebbase
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private int itemID = 0;
@@ -47,6 +48,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
         itemET = findViewById(R.id.item_edit_text);
+        // Button find
         btn = findViewById(R.id.add_btn);
         itemsList = findViewById(R.id.items_list);
         items = filehelper.readData(this);
@@ -55,6 +57,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         itemsList.setAdapter(adapter);
         btn.setOnClickListener(this);
         itemsList.setOnItemClickListener(this);
+        // initiate hashmap
         test = new HashMap<Integer, Integer>() {{
         }};
     }
@@ -103,6 +106,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         adapter.notifyDataSetChanged();
         listCount = adapter.getCount();
 
+        //write data
         filehelper.writeData(items, this);
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");

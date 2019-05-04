@@ -16,7 +16,6 @@ public class CalTask {
     }
 
     //Constructor
-
     public CalTask(String taskID, String taskname, String titlename, String dayname) {
         this.taskID = taskID;
         this.taskname = taskname;
