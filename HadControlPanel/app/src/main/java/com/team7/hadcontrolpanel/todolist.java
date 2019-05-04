@@ -21,24 +21,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ *to do list
+ */
 public class todolist extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+    //declear variables
     private EditText itemET;
     private Button btn;
     private ListView itemsList;
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private int itemID = 0;
+    //list counter
     int listCount = 0;
     String key;
 
+    //clear Arrays
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> itemCounter;
 
     Map<Integer, Integer> test;
 
+
+    //when the programs starts it will do this
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +63,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         }};
     }
 
-
+    // when it is clicked
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -79,18 +86,23 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
+
+    //when item is clicked
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // index key
         int key = 0;
         String item = items.get(position);
         System.out.println(position);
 
+        //for loop to check for item size
         for (int i = 0; i < itemCounter.size(); i++) {
             if (itemCounter.get(i).contentEquals(item)) {
                 key = i;
                 System.out.println(key);
             }
         }
+        //call remove when the item is clicked
         items.remove(position);
         adapter.notifyDataSetChanged();
         listCount = adapter.getCount();
@@ -99,6 +111,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
 
+        //print the key
         System.out.println(key);
         ref.child("Item").child(String.valueOf(key)).removeValue();
 

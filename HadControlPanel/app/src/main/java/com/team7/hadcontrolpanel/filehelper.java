@@ -1,6 +1,7 @@
 package com.team7.hadcontrolpanel;
 
 import android.content.Context;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +14,10 @@ import java.io.ObjectOutputStream;
 public class filehelper {
     public static final String FILENAME ="listinfo.dat";
 
+
+    /**
+     *write data
+     */
     public static void writeData(ArrayList<String> items, Context context){
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, context.MODE_PRIVATE);
@@ -26,6 +31,9 @@ public class filehelper {
         }
     }
 
+    /**
+     *read data
+     */
     public static ArrayList<String> readData(Context context) {
         ArrayList<String> itemList=null;
         try {

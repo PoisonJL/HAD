@@ -1,14 +1,13 @@
 package com.team7.hadcontrolpanel;
 
-
-//initiate variable
 public class CalTask {
+    //declare varailbes
     private String taskID;
     private String taskname;
     private String titlename;
     private String dayname;
 
-    //constructor
+    //construcot
     public CalTask(){
         this.taskID = " ";
         this.taskname = " ";
@@ -16,7 +15,7 @@ public class CalTask {
         this.dayname = " ";
     }
 
-    //constructor
+    //Constructor
 
     public CalTask(String taskID, String taskname, String titlename, String dayname) {
         this.taskID = taskID;
@@ -25,17 +24,14 @@ public class CalTask {
         this.dayname = dayname;
     }
 
-
-    //constructor
-
+    //Constructor
     public CalTask(CalTask orig) {
         this.taskID = orig.taskID;
         this.taskname = orig.taskname;
         this.titlename = orig.titlename;
         this.dayname = orig.dayname;
     }
-
-    //getter function
+    //getter methods
     public String getTaskID()
     {
         return taskID;

@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 
+
+/**
+ *dialogox
+ */
 public class DialogBox extends AppCompatDialogFragment {
 
     private String title, message;
