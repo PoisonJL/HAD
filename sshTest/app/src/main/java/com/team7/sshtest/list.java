@@ -24,10 +24,11 @@ import java.util.ArrayList;
  */
 public class todolist extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    //declear variables
+    //declare variables
     private EditText itemET;
     private Button btn;
     private ListView itemsList;
+    //set up firebbase
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private int itemID = 0;
@@ -46,6 +47,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist);
         itemET = findViewById(R.id.item_edit_text);
+        // Button find
         btn = findViewById(R.id.add_btn);
         itemsList = findViewById(R.id.items_list);
         items = filehelper.readData(this);
@@ -54,6 +56,12 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         itemsList.setAdapter(adapter);
         btn.setOnClickListener(this);
         itemsList.setOnItemClickListener(this);
+<<<<<<< HEAD:sshTest/app/src/main/java/com/team7/sshtest/list.java
+=======
+        // initiate hashmap
+        test = new HashMap<Integer, Integer>() {{
+        }};
+>>>>>>> 09781020685ab7d741590125120982ab9bec2071:HadControlPanel/app/src/main/java/com/team7/hadcontrolpanel/todolist.java
     }
 
     // when it is clicked
@@ -120,6 +128,7 @@ public class todolist extends AppCompatActivity implements View.OnClickListener,
         adapter.notifyDataSetChanged();
         listCount = adapter.getCount();
 
+        //write data
         filehelper.writeData(items, this);
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
