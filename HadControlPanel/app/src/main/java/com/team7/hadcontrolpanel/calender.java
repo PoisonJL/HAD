@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-// initiate variable
+
 public class calender extends AppCompatActivity {
     CalendarView calendarView;
     TextView myDate;
@@ -26,20 +26,15 @@ public class calender extends AppCompatActivity {
     private EditText  inputTask;
     private FloatingActionButton viewCal;
 
-    //button
     Button btnSave;
 
-
-    //On create method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //set content view
         setContentView(R.layout.activity_calender);
-        // button
         Button btnSave = (Button) findViewById(R.id.btnSave);
 
-        //reference for databbase
+
         databaseReference= FirebaseDatabase.getInstance().getReference("Tasks");
         viewCal =findViewById(R.id.viewCal);
 
@@ -51,12 +46,11 @@ public class calender extends AppCompatActivity {
                 startActivity(t);
             }
         });
+
         inputTitle = findViewById(R.id.txtTitle);
         inputDay = (EditText)findViewById(R.id.txtDay);
         inputTask = (EditText)findViewById(R.id.txtTask);
 
-
-        // when the user cilcks, add a new task, and opens a new dialog.
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,13 +72,11 @@ public class calender extends AppCompatActivity {
         });
     }
 
-    // open a new dialog.
     public void openDialog() {
         DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
 
-    // add a new task when the user click on add task Button
     public void addTasks(){
         String titleName = inputTitle.getText().toString();
         String dayName = inputDay.getText().toString();
