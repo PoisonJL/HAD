@@ -34,19 +34,18 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <EditText
+    <Spinner
         android:id="@+id/wifiInput"
-        android:layout_width="334dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="33dp"
-        android:ems="10"
-        android:hint="WiFi Name"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintVertical_bias="0.019"
+        tools:layout_editor_absoluteX="-16dp" />
 
     <EditText
         android:id="@+id/passInput"
