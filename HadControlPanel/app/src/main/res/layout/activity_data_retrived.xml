@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-=======
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +10,6 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
->>>>>>> parent of 5ad7eb3... scroll
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
@@ -43,11 +31,6 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-<<<<<<< HEAD
-        <include layout="@layout/list_view" />
-    </LinearLayout>
-</ScrollView>
-=======
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
@@ -56,4 +39,3 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="72dp" />
 </RelativeLayout>
->>>>>>> parent of 5ad7eb3... scroll
