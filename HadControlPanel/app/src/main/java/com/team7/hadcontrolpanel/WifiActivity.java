@@ -43,7 +43,7 @@ public class WifiActivity extends AppCompatActivity {
 
     // Pi credentials to connect to the Pi
     String username = "pi";
-    String sshPassword = "haddevice.";
+    String sshPassword = "haddevice";
     String hostname = "192.168.4.1";
     int port = 22;
 
@@ -78,9 +78,7 @@ public class WifiActivity extends AppCompatActivity {
                 System.out.println(nw.SSID);
                 String ssidEntry = nw.SSID;
                 String ssidInfo = nw.capabilities;
-                if (ssidInfo.contains("WPA2"))
-                    ssidEntry = ssidEntry + "//" + "WPA2-PSK";
-                else if (ssidInfo.contains("WPA"))
+                if (ssidInfo.contains("WPA"))
                     ssidEntry = ssidEntry + "//" + "WPA-PSK";
                 else if (ssidInfo.contains("WEP"))
                     ssidEntry = ssidEntry + "//" + "WEP-PSK";
