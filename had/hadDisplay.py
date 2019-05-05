@@ -1,5 +1,5 @@
 from guizero import *
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import threading
 import pyrebase
 import requests
@@ -7,9 +7,6 @@ import json
 import time
 import subprocess
 import glob
-import urllib.request
-#import os
-#import socket
 
 # Initialize Variables Region
 
@@ -66,21 +63,44 @@ def privacyMask():
         conWifiName = conWifi.val()
         print(conWifiName)
         privacy = db.child("Privacy Mode").child("Mode").get()
-        todoList = db.child("ToDo List").child("Item").get()
+        todoList = db.child("ToDo List").get()
         todoTxt.clear()
         try:
+		# As a backup, create a file and store all To-Do items in the file
+		# Overwrite each time this is run
+            todoTxtFile = open("/home/pi/had/hadTodo.txt", "w+")
+            todoTxtFile.write(str(privacy.val()) + "\n")
             for t in todoList.each():
                 todoKey = t.key()
-                todoItem = db.child("ToDo List").child("Item").child(todoKey).get().val()
+                print(todoKey)
+                todoItem = db.child("ToDo List").child(todoKey).get().val()
+                todoName = todoItem['todoItem']
+                todoTxtFile.write(todoName + "\n")
                 if privacy.val() == "Privacy Off" and curWifi == conWifiName:
-                    todoName = todoItem
                     todoTxt.append(todoName + "\n")
                 else:
                     todoTxt.append("Something to do\n")
+            todoTxtFile.close()
         except TypeError:
             print("There are no items!\n")
     except:
         print("Error")
+        checkTodoFile = str(glob.glob("/home/pi/had/hadTodo.txt"))
+        if checkTodoFile == "[]":
+            todoTxt.append("No To-Do items!")
+        else:
+            todoFile = open("/home/pi/had/hadTodo.txt", "r")
+            todoLine = todoFile.readlines()
+            tmpPrivacy = True
+            for l in todoLine:
+                if "Off" in l and curWifi == conWifiName:
+                    tmpPrivacy = False
+                else:
+                    if tmpPrivacy == True:
+                        todoTxt.append("Something to do")
+                    else:
+                        todoTxt.append(str(l)) 
+            todoFile.close()
     if todoBox.visible == True:
         todoTxt.after(2000, privacyMask)
         
@@ -100,21 +120,21 @@ def privacyCalMask():
         calList = db.child("Tasks").order_by_child("dayname").get()
         calTxt.clear()
         try:
-            calFile = open("/home/pi/had/hadCal.txt", "w+")
-            calFile.write(str(privacy.val()) + "\n")
+            calTxtFile = open("/home/pi/had/hadCal.txt", "w+")
+            calTxtFile.write(str(privacy.val()) + "\n")
             for t in calList.each():
                 calKey = t.key()
                 print(calKey)
                 calItem = db.child("Tasks").child(calKey).get().val()
                 print(str(calItem['dayname']))
                 calDate = datetime.strptime(str(calItem['dayname']), "%m/%d/%Y")
-                if curDt <= calDate:
-                    calFile.write(calItem['dayname'] + " - " + calItem['titlename'] + "\n")
+                if curDt <= calDate + timedelta(days=1):
+                    calTxtFile.write(calItem['dayname'] + " - " + calItem['titlename'] + "\n")
                     if privacy.val() == "Privacy Off" and curWifi == conWifiName:
                         calTxt.append(calItem['dayname'] + " - " + calItem['titlename'] + "\n")
                     else:
                         calTxt.append("Something to do\n")
-            calFile.close()
+            calTxtFile.close()
         except TypeError:
             print("There are no items!\n")
     except:
@@ -178,10 +198,13 @@ def getIpAndSetLoc():
             for l in locLine:
                 if "units" in l:
                     units = l.split("=")[1]
+                    units = units.replace("\n", "")
                 elif "lat" in l:
                     lat = l.split("=")[1]
+                    lat = lat.replace("\n", "")
                 elif "long" in l:
                     long = l.split("=")[1]
+                    long = long.replace("\n", "")
             print(units + "; " + lat + "; " + long)
             locFile.close()
                     
