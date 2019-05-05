@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@color/bgcolor"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -42,40 +42,47 @@
         android:layout_alignParentRight="true"
         app:srcCompat="@android:drawable/ic_dialog_alert" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnGetWiFiInfo"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
-        android:onClick="onGetWiFiInfoClick"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
         android:background="#FFFF"
-        android:text="Get Current WiFi Info" />
+        android:onClick="onGetWiFiInfoClick"
+        android:text="Get Current WiFi Info"
+        app:srcCompat="@drawable/wifiinfo" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnParing"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
-        android:layout_marginLeft="225dp"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
         android:onClick="onConnectingWiFiClick"
         android:background="#FFFF"
-        android:text="Connect to WiFi" />
+        android:text="Connect to WiFi"
+        app:srcCompat="@drawable/connect" />
 
-    <Button
+    <ImageButton
         android:id="@+id/TodoList"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="525dp"
+        android:layout_marginTop="330dp"
+        android:layout_centerHorizontal="true"
         android:background="#FFFF"
-        android:text="To Do List" />
+        android:text="To Do List"
+        app:srcCompat="@drawable/todolist" />
 
-    <Button
+    <ImageButton
         android:id="@+id/Calender"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="525dp"
-        android:layout_marginLeft="225dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="480dp"
         android:background="#FFFF"
-        android:text="calender" />
+        android:layout_alignParentBottom="true"
+        android:text="calender"
+        app:srcCompat="@drawable/calendar" />
 
 </RelativeLayout>

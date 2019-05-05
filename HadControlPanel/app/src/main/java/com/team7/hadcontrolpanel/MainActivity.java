@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //declare view variables
-        Button btnCal = findViewById(R.id.Calender);
-        Button btnTodo = findViewById(R.id.TodoList);
+        ImageButton btnCal = findViewById(R.id.Calender);
+        ImageButton btnTodo = findViewById(R.id.TodoList);
         FirebaseApp.initializeApp(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
