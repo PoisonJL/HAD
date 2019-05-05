@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:background="@drawable/backgroun1"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -45,8 +46,7 @@
         android:id="@+id/btnGetWiFiInfo"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="250dp"
         android:onClick="onGetWiFiInfoClick"
         android:text="Get Current WiFi Info" />
 
@@ -54,26 +54,25 @@
         android:id="@+id/btnParing"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp"
+        android:layout_marginLeft="225dp"
         android:onClick="onConnectingWiFiClick"
-        android:text="Connecting to WiFi" />
+        android:text="Connect to WiFi" />
 
     <Button
         android:id="@+id/TodoList"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="310dp"
-        android:text="To Do List"
-        android:textAlignment="center" />
+        android:layout_marginTop="570dp"
+        android:text="To Do List" />
 
     <Button
         android:id="@+id/Calender"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="370dp"
-        android:layout_centerHorizontal="true"
-        android:text="calender"/>
+        android:layout_marginTop="570dp"
+        android:layout_marginLeft="225dp"
+        android:text="calender"
+        />
 
 </RelativeLayout>
