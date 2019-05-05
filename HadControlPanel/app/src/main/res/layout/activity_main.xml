@@ -3,90 +3,90 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/bgcolor"
+    tools:context=".MainActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main_content"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgcolor"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="Welcome to HAD"
-                tools:layout_conversion_absoluteHeight="56dp"
-                tools:layout_conversion_absoluteWidth="411dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="8dp">
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabPrivacy"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            app:srcCompat="@android:drawable/ic_dialog_alert" />
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Welcome to HAD"
+            tools:layout_conversion_absoluteHeight="56dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="8dp">
 
-        <ImageButton
-            android:id="@+id/btnGetWiFiInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
-            android:background="#FFFF"
-            android:onClick="onGetWiFiInfoClick"
-            android:text="Get Current WiFi Info"
-            app:srcCompat="@drawable/wifiinfo" />
+        </android.support.v7.widget.Toolbar>
 
-        <ImageButton
-            android:id="@+id/btnParing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp"
-            android:background="#FFFF"
-            android:onClick="onConnectingWiFiClick"
-            android:text="Connect to WiFi"
-            app:srcCompat="@drawable/connect" />
+    </android.support.design.widget.AppBarLayout>
 
-        <ImageButton
-            android:id="@+id/TodoList"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="330dp"
-            android:background="#FFFF"
-            android:text="To Do List"
-            app:srcCompat="@drawable/todolist" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabPrivacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@android:drawable/ic_dialog_alert" />
 
-        <ImageButton
-            android:id="@+id/Calender"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="465dp"
-            android:background="#FFFF"
-            android:text="calender"
-            app:srcCompat="@drawable/calendar" />
+    <ImageButton
+        android:id="@+id/btnGetWiFiInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:background="#FFFF"
+        android:onClick="onGetWiFiInfoClick"
+        android:text="Get Current WiFi Info"
+        app:srcCompat="@drawable/wifiinfo" />
 
-    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/btnParing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="onConnectingWiFiClick"
+        android:background="#FFFF"
+        android:text="Connect to WiFi"
+        app:srcCompat="@drawable/connect" />
+
+    <ImageButton
+        android:id="@+id/TodoList"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        android:layout_centerHorizontal="true"
+        android:background="#FFFF"
+        android:text="To Do List"
+        app:srcCompat="@drawable/todolist" />
+
+    <ImageButton
+        android:id="@+id/Calender"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="465dp"
+        android:background="#FFFF"
+        android:text="calender"
+        app:srcCompat="@drawable/calendar" />
+
+</RelativeLayout>
 </ScrollView>
