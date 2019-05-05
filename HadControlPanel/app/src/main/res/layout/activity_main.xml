@@ -44,37 +44,39 @@
 
     <Button
         android:id="@+id/btnGetWiFiInfo"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="270dp"
-        android:onClick="onGetWiFiInfoClick"
+        android:layout_marginLeft="30dp"
         android:background="#FFFF"
-        android:text="Get Current WiFi Info" />
+        android:onClick="onGetWiFiInfoClick"
+        android:text=" Get Current WiFi Info " />
 
     <Button
         android:id="@+id/btnParing"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="270dp"
-        android:layout_marginLeft="225dp"
+        android:layout_marginLeft="260dp"
         android:onClick="onConnectingWiFiClick"
         android:background="#FFFF"
-        android:text="Connect to WiFi" />
+        android:text=" Connect to WiFi " />
 
     <Button
         android:id="@+id/TodoList"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#FFFF"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="525dp"
         android:text="To Do List" />
 
     <Button
         android:id="@+id/Calender"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="525dp"
-        android:layout_marginLeft="225dp"
+        android:layout_marginLeft="275dp"
         android:background="#FFFF"
         android:text="calender" />
 
