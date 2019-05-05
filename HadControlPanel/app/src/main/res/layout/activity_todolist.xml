@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
     android:padding="16dp"
-    tools:context=".todolist">
+    tools:context=".TodoItem">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -51,7 +50,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_btn"
             android:text="add" />
 
     </LinearLayout>

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".WifiActivity">
@@ -72,7 +71,6 @@
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="104dp"
-        android:background="@drawable/bg_btn"
         android:text="Connect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passInput" />
