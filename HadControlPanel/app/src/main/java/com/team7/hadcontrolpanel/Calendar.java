@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 //calender class
-public class calender extends AppCompatActivity {
+public class Calendar extends AppCompatActivity {
     //declear variales
     CalendarView calendarView;
     TextView myDate;
@@ -42,7 +42,7 @@ public class calender extends AppCompatActivity {
         viewCal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent t = new Intent(calender.this, DataRetrived.class);
+                Intent t = new Intent(Calendar.this, DataRetrived.class);
                 startActivity(t);
             }
         });
@@ -78,7 +78,7 @@ public class calender extends AppCompatActivity {
         DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
-        //add task
+    //add task
     public void addTasks(){
         String titleName = inputTitle.getText().toString();
         String dayName = inputDay.getText().toString();

@@ -37,12 +37,12 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater =context.getLayoutInflater();
+        LayoutInflater inflater = context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.list_view ,null,true);
 
         //get the varaibles y ID
         TextView dayName = (TextView)listView.findViewById(R.id.txtDay);
-        TextView taskName =(TextView)listView.findViewById(R.id.txtTask);
+        TextView taskName = (TextView)listView.findViewById(R.id.txtTask);
         TextView titlName = (TextView)listView.findViewById(R.id.txtTitle);
 
         //set variales

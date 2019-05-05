@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         calenderbutton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, calender.class));
+                startActivity(new Intent(MainActivity.this, Calendar.class));
             }
         });
 

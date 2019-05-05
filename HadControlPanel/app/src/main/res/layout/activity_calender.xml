@@ -9,7 +9,7 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".calender">
+    tools:context=".Calendar">
 
 
     <TextView
@@ -87,7 +87,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="110dp"
         android:layout_marginTop="34dp"
-        android:background="@drawable/bg_btn"
         android:text="Save Your Task!"
         android:textColor="#FFF" />
 
