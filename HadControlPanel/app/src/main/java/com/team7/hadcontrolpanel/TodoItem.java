@@ -65,20 +65,17 @@ public class TodoItem extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemList.clear();
                 for (DataSnapshot itemSnap : dataSnapshot.getChildren()) {
                     Item item = itemSnap.getValue(Item.class);
-
                     itemList.add(item);
                 }
                 TodoList adapter = new TodoList(TodoItem.this, itemList);
                 itemListView.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

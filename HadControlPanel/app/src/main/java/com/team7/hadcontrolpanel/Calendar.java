@@ -3,7 +3,6 @@ package com.team7.hadcontrolpanel;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,7 +11,6 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,12 +22,10 @@ public class Calendar extends AppCompatActivity {
     CalendarView calendarView;
     TextView myDate;
     DatabaseReference databaseReference;
-    private TextInputEditText inputTitle;
-    private EditText inputDay;
-    private EditText  inputTask;
+    private EditText txtTitle;
+    private EditText txtDate;
+    private EditText txtEvent;
     private FloatingActionButton viewCal;
-    //Button
-    Button btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +33,8 @@ public class Calendar extends AppCompatActivity {
         setContentView(R.layout.activity_calender);
         Button btnSave = (Button) findViewById(R.id.btnSave);
 
-
-        databaseReference= FirebaseDatabase.getInstance().getReference("Tasks");
-        viewCal =findViewById(R.id.viewCal);
+        databaseReference= FirebaseDatabase.getInstance().getReference("Events");
+        viewCal = findViewById(R.id.viewCal);
 
         viewCal.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,14 +44,14 @@ public class Calendar extends AppCompatActivity {
             }
         });
 
-        inputTitle = findViewById(R.id.txtTitle);
-        inputDay = (EditText)findViewById(R.id.txtDay);
-        inputTask = (EditText)findViewById(R.id.txtTask);
+        txtTitle = (EditText) findViewById(R.id.txtTitle);
+        txtDate = (EditText) findViewById(R.id.txtDate);
+        txtEvent = (EditText) findViewById(R.id.txtEvent);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addTasks();
+                addEvent();
             }
         });
 
@@ -68,9 +63,9 @@ public class Calendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                String date = String.format("%02d", (i1 + 1)) + "/" + String.format("%02d", i2) + "/" + i;
-                myDate.setText(date);
-                inputDay.setText(date);
+                String calDate = String.format("%02d", (i1 + 1)) + "/" + String.format("%02d", i2) + "/" + i;
+                myDate.setText(calDate);
+                txtDate.setText(calDate);
             }
         });
     }
@@ -80,23 +75,26 @@ public class Calendar extends AppCompatActivity {
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
     //add task
-    public void addTasks(){
-        String titleName = inputTitle.getText().toString();
-        String dayName = inputDay.getText().toString();
-        String taskName = inputTask.getText().toString();
+    public void addEvent(){
+        String title = txtTitle.getText().toString();
+        String date = txtDate.getText().toString();
+        String event = txtEvent.getText().toString();
 
-        if(!TextUtils.isEmpty(titleName)&& !TextUtils.isEmpty((taskName))) {
+        if(!TextUtils.isEmpty(title)&& !TextUtils.isEmpty((event))) {
 
             String id = databaseReference.push().getKey();
 
-            CalTask tasks = new CalTask(id, taskName,  titleName,  dayName);
-            databaseReference.child(id).setValue(tasks);
+            CalEvent events = new CalEvent(id, title, date, event);
+            databaseReference.child(id).setValue(events);
             openDialog("Information", "Your Event has been Saved!");
-            inputTitle.setText(" ");
-            inputDay.setText(" ");
-            inputTask.setText(" ");
+            txtTitle.setText(" ");
+            txtDate.setText(" ");
+            txtEvent.setText(" ");
         }
-        else {
+        else if(TextUtils.isEmpty(title)) {
+            openDialog("Alert", "You must enter a Title!");
+        }
+        else if (TextUtils.isEmpty(event)) {
             openDialog("Alert", "You must enter an Event!");
         }
     }

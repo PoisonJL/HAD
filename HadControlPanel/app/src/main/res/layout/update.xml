@@ -22,11 +22,11 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextTask"
+        android:id="@+id/editTextEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Task"
+        android:hint="Event"
         android:inputType="textPersonName" />
 
     <Button
@@ -40,5 +40,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
 
 </LinearLayout>

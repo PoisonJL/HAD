@@ -29,8 +29,7 @@ public class DataRetrived extends AppCompatActivity {
     //declare variables
     private ListView listView;
     DatabaseReference databaseReference;
-    List<CalTask> calTasksList;
-
+    List<CalEvent> calEventList;
 
     /**
      *when the programs is created
@@ -40,16 +39,17 @@ public class DataRetrived extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_retrived);
         listView = findViewById(R.id.list_view);
-        calTasksList = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Tasks");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Events");
+
         // clear new array
-        calTasksList = new ArrayList<>();
+        calEventList = new ArrayList<>();
+
         // whenever this list is long clicked.
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                CalTask ct = calTasksList.get(position);
-                showUpdateDialog(ct.getTaskID(), ct.gettaskname(), ct.gettitlename(), ct.getdayname());
+                CalEvent calEvent = calEventList.get(position);
+                showUpdateDialog(calEvent.getEventID(), calEvent.getTitle(), calEvent.getDate(), calEvent.getEvent());
                 return false;
             }
         });
@@ -63,13 +63,12 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                calTasksList.clear();
-                for (DataSnapshot ts : dataSnapshot.getChildren()) {
-                    //
-                    CalTask ct = ts.getValue(CalTask.class);
-                    calTasksList.add(ct);
+                calEventList.clear();
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    CalEvent calEvent = dataSnap.getValue(CalEvent.class);
+                    calEventList.add(calEvent);
                 }
-                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrived.this, calTasksList);
+                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrived.this, calEventList);
                 listView.setAdapter(taskInfoAdapter);
             }
 
@@ -80,27 +79,26 @@ public class DataRetrived extends AppCompatActivity {
         });
     }
 
-
     /**
      *show the update dialog when it is clicked
      */
-    private void showUpdateDialog(String taskID, String task, String title, String date) {
+    private void showUpdateDialog(String eventID, String title, String date, String event) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.update, null);
 
         dialogBuilder.setView(dialogView);
 
-        final EditText editTextTask = (EditText) dialogView.findViewById(R.id.editTextTask);
         final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
         final EditText editTextDate = (EditText) dialogView.findViewById(R.id.editTextDate);
+        final EditText editTextEvent = (EditText) dialogView.findViewById(R.id.editTextEvent);
         final Button btnUpdate = (Button) dialogView.findViewById(R.id.btnUpdate);
         final Button btnDelete = (Button) dialogView.findViewById(R.id.btnDelete);
+        final Button btnCancel = (Button) dialogView.findViewById(R.id.btnCancel);
 
-
-        editTextTask.setText(task);
-        editTextDate.setText(date);
         editTextTitle.setText(title);
+        editTextDate.setText(date);
+        editTextEvent.setText(event);
 
         dialogBuilder.setTitle("Updating Title: " + title);
         AlertDialog alertDialog = dialogBuilder.create();
@@ -109,15 +107,20 @@ public class DataRetrived extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String task = editTextTask.getText().toString();
                 String title = editTextTitle.getText().toString();
                 String date = editTextDate.getText().toString();
+                String event = editTextEvent.getText().toString();
 
-                if(TextUtils.isEmpty(task)) {
-                    editTextTask.setError("Task Required");
-                    return;
+                if(!TextUtils.isEmpty(title)&& !TextUtils.isEmpty((event))) {
+                    updateCalendar(eventID, title, date, event);
                 }
-                updateCalendar(taskID, title, task, date);
+                else if(TextUtils.isEmpty(title)) {
+                    editTextTitle.setError("You must enter a Title!");
+                }
+                else if (TextUtils.isEmpty(event)) {
+                    editTextEvent.setError("You must enter a Title!");
+                }
+                updateCalendar(eventID, title, date, event);
                 alertDialog.dismiss();
             }
         });
@@ -125,9 +128,10 @@ public class DataRetrived extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String task = editTextTask.getText().toString();
                 String title = editTextTitle.getText().toString();
                 String date = editTextDate.getText().toString();
+                String event = editTextEvent.getText().toString();
+
                 new AlertDialog.Builder(DataRetrived.this).
                         setMessage("Are you sure you want to DELETE this event?").
                         setCancelable(true).
@@ -135,7 +139,7 @@ public class DataRetrived extends AppCompatActivity {
                                 "Yes",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        deleteEvent(taskID);
+                                        deleteEvent(eventID);
                                         dialog.dismiss();
                                     }
                                 }
@@ -153,23 +157,33 @@ public class DataRetrived extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
-    }
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = editTextTitle.getText().toString();
+                String date = editTextDate.getText().toString();
+                String event = editTextEvent.getText().toString();
+
+                alertDialog.dismiss();
+            }
+        });
+    }
 
     /**
      *update calender
      */
-    private boolean updateCalendar(String id, String task, String title, String date) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
-        CalTask ct = new CalTask(id, task, title, date);
-        databaseReference.setValue(ct);
+    private boolean updateCalendar(String id, String title, String date, String event) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Events").child(id);
+        CalEvent calEvents = new CalEvent(id, title, date, event);
+        databaseReference.setValue(calEvents);
         Toast.makeText(this, "Event Updated Successfully", Toast.LENGTH_LONG).show();
         return true;
     }
 
     //delete task
-    public void deleteEvent(String taskID) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(taskID);
+    public void deleteEvent(String EventID) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Events").child(EventID);
 
         DatabaseReference deleteEvent = databaseReference;
 

@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.view.View;
 
-import com.google.android.gms.tasks.Tasks;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,19 +15,19 @@ import java.util.List;
 /**
  *public class extend from array adapter
  */
-public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
+public class TaskInfoAdapter extends ArrayAdapter<CalEvent> {
 
     //declear variablbes
     private Activity context;
-    private List<CalTask>tasksList;
+    private List<CalEvent> eventList;
 
     /**
      *Constructor, takes list of tasks and context
      */
-    public TaskInfoAdapter(Activity context, List<CalTask>tasksList){
-        super(context,R.layout.list_view,tasksList);
-        this.context =context;
-        this.tasksList=tasksList;
+    public TaskInfoAdapter(Activity context, List<CalEvent> eventList){
+        super(context, R.layout.list_view, eventList);
+        this.context = context;
+        this.eventList = eventList;
     }
 
 
@@ -41,15 +39,15 @@ public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
         View listView = inflater.inflate(R.layout.list_view ,null,true);
 
         //get the varaibles y ID
-        TextView dayName = (TextView)listView.findViewById(R.id.txtDay);
-        TextView taskName = (TextView)listView.findViewById(R.id.txtTask);
-        TextView titlName = (TextView)listView.findViewById(R.id.txtTitle);
+        TextView title = (TextView)listView.findViewById(R.id.txtTitle);
+        TextView date = (TextView)listView.findViewById(R.id.txtDate);
+        TextView event = (TextView)listView.findViewById(R.id.txtEvent);
 
         //set variales
-        CalTask task1= tasksList.get(position);
-        taskName.setText(task1.gettaskname());
-        dayName.setText(task1.getdayname());
-        titlName.setText(task1.gettitlename());
+        CalEvent events = eventList.get(position);
+        title.setText(events.getTitle());
+        date.setText(events.getDate());
+        event.setText(events.getEvent());
 
         return listView;
     }
