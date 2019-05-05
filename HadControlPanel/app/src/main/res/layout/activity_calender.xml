@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Calendar">
-
-
-    <TextView
-        android:id="@+id/myDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:text="Mark your date!"
-        android:textAlignment="center"
-        android:textColor="#FFF"
-        android:textSize="23sp"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
     <LinearLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Calendar">
 
-        <CalendarView
-            android:id="@+id/Calenderview"
+
+        <TextView
+            android:id="@+id/myDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:text="Mark your date!"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="23sp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="300dp">
 
-        </CalendarView>
+            <CalendarView
+                android:id="@+id/Calenderview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </CalendarView>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:inputType="text"
+            android:textColor="#00030303" />
+
+        <EditText
+            android:id="@+id/txtDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/txtEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="#03A9F4"
+            android:text="Save Your Event!"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#070707" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/viewCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/txtTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:inputType="text"
-        android:textColor="#00030303" />
-
-    <EditText
-        android:id="@+id/txtDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Date"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/txtEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event"
-        android:inputType="text"/>
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:background="#03A9F4"
-        android:text="Save Your Event!"
-        android:textColor="#FFFFFF"
-        android:textColorLink="#070707" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/viewCal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_my_calendar"/>
-
-</LinearLayout>
+</ScrollView>
