@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="Save Your Event!"
+
         android:textColor="#FFF" />
 
     <android.support.design.widget.FloatingActionButton
