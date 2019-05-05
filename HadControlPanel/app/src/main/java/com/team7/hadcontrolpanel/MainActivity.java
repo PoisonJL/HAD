@@ -31,36 +31,47 @@ public class MainActivity extends AppCompatActivity {
     int counter;
     private final String TAG = "SnapshotDatabase";
 
+    /**
+     * When program is created
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //declare view variables
+        Button btnCal = findViewById(R.id.Calender);
+        Button btnTodo = findViewById(R.id.TodoList);
         FirebaseApp.initializeApp(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        FloatingActionButton fabPrivacy = (FloatingActionButton) findViewById(R.id.fabPrivacy);
 
-        Button yourButton = findViewById(R.id.TodoList);
-        yourButton.setOnClickListener(new OnClickListener() {
+        // instantiate database variables
+        db = FirebaseDatabase.getInstance();
+        ref = db.getReference("ToDo List");
+
+        //go to todoitem page
+        btnTodo.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TodoItem.class));
             }
         });
 
-        Button calenderbutton = findViewById(R.id.Calender);
-
-        calenderbutton.setOnClickListener(new OnClickListener() {
+        // go to calendar page
+        btnCal.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Calendar.class));
             }
         });
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fabPrivacy = (FloatingActionButton) findViewById(R.id.fabPrivacy);
+        // when privacy fab is clicked
         fabPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //counter for privacy count
                 counter++;
+                //database variables
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference("Privacy Mode");
                 if (counter % 2 == 1) {
@@ -75,10 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //call firebase
-        db = FirebaseDatabase.getInstance();
-        ref = db.getReference("ToDo List");
 
         // Read from the database
         ref.addValueEventListener(new ValueEventListener() {
@@ -98,23 +105,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // go to connecting wifi page
     public void onConnectingWiFiClick(View v) {
         this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
     }
+
+    //get wifi info
     public void onGetWiFiInfoClick(View v) {
-        getWifiName(this);
+        getWifiName(this); //calling getWiFiName
     }
 
     //get wifi name
     public String getWifiName(Context context) {
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Connected WiFi");
+        // instantiate wifi manager
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager.isWifiEnabled()) {
+            //getting wifi info
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
+                    //getting ssid
                     ssid = wifiInfo.getSSID().replace("\"", "");
                     ref.child("SSID").setValue(ssid);
                     Toast.makeText(this, "SSID: " + ssid, Toast.LENGTH_SHORT).show();

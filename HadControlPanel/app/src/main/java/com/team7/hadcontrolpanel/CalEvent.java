@@ -7,7 +7,9 @@ public class CalEvent {
     private String date;
     private String event;
 
-    //construcot
+    /**
+     * default constructor
+     */
     public CalEvent() {
         this.eventID = " ";
         this.title = " ";
@@ -15,7 +17,9 @@ public class CalEvent {
         this.event = " ";
     }
 
-    //Constructor
+    /**
+     * Constructor
+     */
     public CalEvent(String eventID, String title, String date, String event) {
         this.eventID = eventID;
         this.title = title;
@@ -23,14 +27,19 @@ public class CalEvent {
         this.event = event;
     }
 
-    //Constructor
+    /**
+     * Copy Constructor
+     */
     public CalEvent(CalEvent orig) {
         this.eventID = orig.eventID;
         this.title = orig.title;
         this.date = orig.date;
         this.event = orig.event;
     }
-    //getter methods
+
+    /**
+     * Getter methods
+     */
     public String getEventID()
     {
         return eventID;

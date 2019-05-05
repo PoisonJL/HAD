@@ -13,11 +13,11 @@ import java.util.List;
 
 
 /**
- *public class extend from array adapter
+ * public class extend from array adapter
  */
 public class TaskInfoAdapter extends ArrayAdapter<CalEvent> {
 
-    //declear variablbes
+    //declare variables
     private Activity context;
     private List<CalEvent> eventList;
 
@@ -30,20 +30,21 @@ public class TaskInfoAdapter extends ArrayAdapter<CalEvent> {
         this.eventList = eventList;
     }
 
-
-    // get view
+    /**
+     * Get View
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listView = inflater.inflate(R.layout.list_view ,null,true);
 
-        //get the varaibles y ID
+        // view variables
         TextView title = (TextView)listView.findViewById(R.id.txtTitle);
         TextView date = (TextView)listView.findViewById(R.id.txtDate);
         TextView event = (TextView)listView.findViewById(R.id.txtEvent);
 
-        //set variales
+        //set variables to current position values
         CalEvent events = eventList.get(position);
         title.setText(events.getTitle());
         date.setText(events.getDate());

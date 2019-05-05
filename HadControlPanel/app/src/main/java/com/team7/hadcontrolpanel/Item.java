@@ -5,25 +5,34 @@ public class Item {
     private String itemID;
     private String todoItem;
 
-    //construcot
+    /**
+     * Default Constructor
+     */
     public Item(){
         this.itemID = " ";
         this.todoItem = " ";
     }
 
-    //Constructor
+    /**
+     * Constructor
+     */
 
     public Item(String itemID, String todoItem) {
         this.itemID = itemID;
         this.todoItem = todoItem;
     }
 
-    //Constructor
+    /**
+     * Copy Constructor
+     */
     public Item(Item orig) {
         this.itemID = orig.itemID;
         this.todoItem = orig.todoItem;
     }
-    //getter methods
+
+    /**
+     * Copy Constructor
+     */
     public String getItemID() {
         return itemID;
     }
