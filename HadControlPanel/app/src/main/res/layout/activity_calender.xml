@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".Calendar">
 
@@ -41,7 +40,8 @@
         android:layout_marginStart="44dp"
         android:layout_marginEnd="33dp"
         android:hint="Title"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textColor="#00030303" />
 
     <EditText
         android:id="@+id/txtDate"
@@ -63,11 +63,13 @@
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:background="#03A9F4"
         android:text="Save Your Event!"
-        android:textColor="#FFF" />
+        android:textColor="#FFFFFF"
+        android:textColorLink="#070707" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/viewCal"
