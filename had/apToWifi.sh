@@ -8,8 +8,8 @@
 
 if ! [ -f "/etc/wpa_supplicant/wpa_supplicant.conf.orig" ]; then
 	sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.orig
-	if [ -f "hadWifi.conf" ]; then
-		sudo mv hadWifi.conf /etc/wpa_supplicant/wpa_supplicant.conf
+	if [ -f "/home/pi/had/hadWifi.conf" ]; then
+		sudo mv /home/pi/had/hadWifi.conf /etc/wpa_supplicant/wpa_supplicant.conf
 	else
 		sudo mv /etc/wpa_supplicant/wpa_supplicant.conf.mod /etc/wpa_supplicant/wpa_supplicant.conf
 	fi

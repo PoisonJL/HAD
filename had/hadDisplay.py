@@ -34,7 +34,7 @@ changePic = False               # The condition that will be checked to see if t
 # Functions Region
 
 # Checks to see if this is the first time the device has been turned on or not
-def checkForInitialStartup():
+def checkForInitialStartup():	
     initStart = str(glob.glob("/home/pi/had/startup"))
     if initStart == "[]":
         return False
@@ -50,6 +50,8 @@ def updateTime():
     currentDtTxt.after(1000, updateTime)
 
 # Displays all of the to-do lists, and checks whether privacy mode is on or off
+# Connect to the Firebase and check to see what To-Do items are there
+# If Privacy Mode is enabled, it will display "Something to Do"
 def privacyMask():
     global curWifi
     global db
@@ -66,8 +68,8 @@ def privacyMask():
         todoList = db.child("ToDo List").get()
         todoTxt.clear()
         try:
-		# As a backup, create a file and store all To-Do items in the file
-		# Overwrite each time this is run
+            # As a backup, create a file and store all To-Do items in the file
+            # Overwrite each time this is run
             todoTxtFile = open("/home/pi/had/hadTodo.txt", "w+")
             todoTxtFile.write(str(privacy.val()) + "\n")
             for t in todoList.each():
@@ -84,6 +86,9 @@ def privacyMask():
         except TypeError:
             print("There are no items!\n")
     except:
+        # If there is an error, proceed to read the file
+        # If it does not exists, show nothing
+        # Otherwise, proceed as normal
         print("Error")
         checkTodoFile = str(glob.glob("/home/pi/had/hadTodo.txt"))
         if checkTodoFile == "[]":
@@ -103,8 +108,10 @@ def privacyMask():
             todoFile.close()
     if todoBox.visible == True:
         todoTxt.after(2000, privacyMask)
-        
+
 # Displays all of the calendar events, and checks whether privacy mode is on or off
+# Connect to the Firebase database and check to see what calendar events are there
+# If Privacy Mode is on, it will display "Something to Do"
 def privacyCalMask():
     global curDt
     global curWifi
@@ -117,27 +124,32 @@ def privacyCalMask():
         conWifi = db.child("Connected WiFi").child("SSID").get()
         conWifiName = conWifi.val()
         privacy = db.child("Privacy Mode").child("Mode").get()
-        calList = db.child("Tasks").order_by_child("dayname").get()
+        calList = db.child("Events").order_by_child("date").get()
         calTxt.clear()
         try:
+            # As a backup, create a file and store all calendar items 
             calTxtFile = open("/home/pi/had/hadCal.txt", "w+")
             calTxtFile.write(str(privacy.val()) + "\n")
             for t in calList.each():
                 calKey = t.key()
                 print(calKey)
-                calItem = db.child("Tasks").child(calKey).get().val()
-                print(str(calItem['dayname']))
-                calDate = datetime.strptime(str(calItem['dayname']), "%m/%d/%Y")
+                calItem = db.child("Events").child(calKey).get().val()
+                print(str(calItem['date']))
+                calDate = datetime.strptime(str(calItem['date']), "%m/%d/%Y")
                 if curDt <= calDate + timedelta(days=1):
-                    calTxtFile.write(calItem['dayname'] + " - " + calItem['titlename'] + "\n")
+                    calTxtFile.write(calItem['date'] + " - " + calItem['title'] + ": " + calItem['event'] + "\n")
                     if privacy.val() == "Privacy Off" and curWifi == conWifiName:
-                        calTxt.append(calItem['dayname'] + " - " + calItem['titlename'] + "\n")
+                        calTxt.append(calItem['date'] + " - " + calItem['title'] + ": " + calItem['event'] + "\n")
                     else:
                         calTxt.append("Something to do\n")
             calTxtFile.close()
         except TypeError:
             print("There are no items!\n")
     except:
+        # Tries to read calendar data from the file
+        # If it cannot find the file, it will display "No Events!"
+        # Otherwise, it will either display the items or, if Privacy Mode was enabled prior to Firebase comm failure or if the phone is somewhere else,
+        # it will display "Something to do"
         calTxt.clear()
         print("Error")
         checkCalFile = str(glob.glob("/home/pi/had/hadCal.txt"))
@@ -170,12 +182,13 @@ def weatherInfo():
     wthrTxt.append("  Temp: " + str(round(curTemp)) + "\n\n")
     wthrTxt.append("  High: " + str(round(curMaxTmp)) + "\n\n")
     wthrTxt.append("  Low: " + str(round(curMinTmp)) + "\n\n")
+    # If the conditions have changed since the last time weather data was pulled, change the picture to the correct picture
     if changePic == True:
         wthrPic.value = imgStr
         wthrPic.resize(1400, 800)
         changePic = False
     wthrTxt.after(120000, getLatestWeather)
-    
+
 
 # API Call to ipstack.com to get current location
 # The location is then used to get the weather
@@ -186,6 +199,8 @@ def getIpAndSetLoc():
     getLoc = "http://api.ipstack.com/check?access_key=26f340ead375064984cfaccafb9aea87"
     locReq = requests.get(getLoc)
     if locReq.status_code != 200:
+        # If the device cannot call the ipstack API, try to read it from the file
+        # If it cannot read it from the file, use NWA's approximate coordinates (unsure of what to set the default to)
         print(locReq.status_code)
         checkLocFile = str(glob.glob("/home/pi/had/hadLoc.conf"))
         if checkLocFile == "[]":
@@ -206,9 +221,9 @@ def getIpAndSetLoc():
                     long = l.split("=")[1]
                     long = long.replace("\n", "")
             print(units + "; " + lat + "; " + long)
-            locFile.close()
-                    
+        locFile.close()
     else:
+        # Proceed to get the data from ipstack
         locData = json.loads(locReq.text)
         ipAddr = locData['ip']
         conf = open("/home/pi/had/hadLoc.conf", "w+")
@@ -252,11 +267,14 @@ def getLatestWeather():
         curMaxTmp = weatData['main']['temp_max']
         curMinTmp = weatData['main']['temp_min']
         curCondType = weatData['weather'][0]['main']
-        curCond = weatData['weather'][0]['description']
-        if curDt.hour >= 21 or curDt.hour <= 6:
+        curCond = weatData['weather'][0]['description']	
+        # If the time is between 9:00 PM and 5:59 AM, show night pictures of weather condition
+        # Otherwise, show the day pictures of weather conditions
+        if curDt.hour >= 21 or curDt.hour <= 5:
             isNight = True
         else:
-            isNight = False
+            isNight = False		
+        # Weather pictures are stored in the had/weather folder (all pictures are public domain and available for free use)
         imgStr = "/home/pi/had/weather/"
         if "Clear" in str(curCondType):
             imgStr = imgStr + "clearsky"
@@ -286,7 +304,8 @@ def getLatestWeather():
         else:
             imgStr = imgStr + "-day.jpg"
         print(imgStr)
-        print(lastImgStr)
+        print(lastImgStr)	
+        # To be used when the weather display is shown
         if lastImgStr == imgStr:
             changePic = False
         else:
@@ -299,7 +318,7 @@ def getLatestWeather():
 #print(foreLink)
 #foreReq = requests.get(foreLink)
 #foreData = json.loads(foreReq.text)
-    
+
 # Checks the name of the user for a more personalized experience
 # If no name is found, the default is set to "user"
 # If time permits, add this functionality to phone
@@ -347,7 +366,7 @@ def setupFirebaseConfig():
         "authDomain": "todolist-d1359.firebaseapp.com",
         "databaseURL":"https://todolist-d1359.firebaseio.com",
         "storageBucket":"todolist-d1359.appspot.com"
-        }
+    }
     firebase = pyrebase.initialize_app(config)
     return firebase.database()
 
@@ -362,18 +381,25 @@ def scanForWifiFiles():
         welText.after(1000, scanForWifiFiles)
     else:
         welText.clear()
-        welText.value = "\n\n\n\n\n\n\n\nAttempting to connect to " + tmpId + "..."
-        welText.append("\n(This could take up to 20 seconds)")
         print("Files received")
         tmpId = tmpId.split(" ", 1)[1]
         ssid = tmpId[0:len(tmpId) - 2]
-        tmpPw = str(glob.glob("/home/pi/password:*"));
+        welText.value = "\n\n\n\n\n\n\n\nAttempting to connect to " + ssid + "..."
+        welText.append("\n(This could take up to 20 seconds)")
+        tmpPw = str(glob.glob("/home/pi/password:*"))
         tmpPw = tmpPw.split(" ", 1)[1]
         ssidPw = tmpPw[0:len(tmpPw) - 2]
+        tmpSec = str(glob.glob("/home/pi/security:*"))
+        tmpSec = tmpSec.split(" ",1)[1]
+        secPro = tmpSec[0:len(tmpSec) - 2]
         print(ssid)
         print(ssidPw)
+        print(secPro)
+        # Remove the credentials received from the phone
         subprocess.call(["rm -rf /home/pi/ssid:* "], shell = True)
         subprocess.call(["rm -rf /home/pi/password:* "], shell = True)
+        subprocess.call(["rm -rf /home/pi/security:* "], shell = True)
+        # Write the files out to the WPA Supplicant file (used to connect to a network)
         f = open("/home/pi/had/hadWifi.conf", "a+")
         f.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n")
         f.write("update_config=1\n")
@@ -381,11 +407,13 @@ def scanForWifiFiles():
         f.write("network={\n")
         f.write("\tssid=\"" + ssid + "\"\n")
         f.write("\tpsk=\"" + ssidPw + "\"\n")
-        f.write("\tkey_mgmt=WPA-PSK\n}\n\n")
-        f.close()
+        f.write("\tkey_mgmt=" + secPro + "\n}\n\n")
+        f.close()	
+        # Attempt to connect to the network by switching from access point to connecting to a network
+        # Wait 15 seconds before checking to see if you are connected to Wi-Fi
         subprocess.call(["/home/pi/had/apToWifi.sh"], shell = True)
         time.sleep(15)
-        curWifi = checkWifi()
+        curWifi = checkWifi()	
         # If connecting to Wi-Fi failed (for one reason or another), checkWifi will return "Reinitialize", and the user must reenter the Wi-Fi credentials
         # Otherwise, begin to cycle through the displays
         if curWifi == "Reinitialize":
@@ -393,6 +421,7 @@ def scanForWifiFiles():
             welText.value = "\n\n\n\n\n\n\nConnection to internet failed.\n\nPlease connect the Home Ambient Displayer\nto the internet using the smartphone app"
             welText.after(2000, scanForWifiFiles)
         else:
+            # Using another thread, begin getting location and weather data
             global db
             global locThread
             subprocess.call(["rm -rf /home/pi/had/startup"], shell = True)
@@ -413,12 +442,13 @@ def checkWifi():
         wifi = str(subprocess.check_output(["/sbin/iwgetid -r"], shell = True).rstrip())
         if wifi[0] == 'b' and wifi[1] == "\'":
             wifi = wifi.replace("b", "", 1)
-        wifi = wifi[1:len(wifi) - 1]
+            wifi = wifi[1:len(wifi) - 1]
     except subprocess.CalledProcessError:
         # This will always occur if the device is in Access Point Mode. Rather than try to switch it from Wi-Fi to AP, just proceed
         print("iwgetid didn't work. Reset the device!")
         subprocess.call(["/home/pi/had/wifiToAp.sh"], shell = True)
         return "Reinitialize"
+    # If there is no error, check to see if the Wi-Fi name is blank. Otherwise, return the name of the network and proceed to connect
     if wifi == "":
         print("Unable to connect. Reset the device!")
         subprocess.call(["/home/pi/had/wifiToAp.sh"], shell = True)
@@ -480,6 +510,7 @@ else:
         baseBox.visible = False
         scanForWifiFiles()
     else:
+        # Create a new thread that will get the location and the weather data
         baseBox.visible = True
         initBox.visible = False
         currentDtTxt.after(1000, updateTime)
@@ -487,7 +518,7 @@ else:
         locThread = threading.Thread(target = getIpAndSetLoc, args = ())
         locThread.start()
         switchView()
-        
+
 # This handles the actual creation of the window
 app.display()
 
