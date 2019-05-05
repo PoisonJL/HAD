@@ -36,7 +36,6 @@ public class WifiActivity extends AppCompatActivity {
     String sshPassword = "Jia0214.";
     String hostname = "turing.csce.uark.edu";
     int port = 22;
-    String wifiID = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

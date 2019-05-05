@@ -12,6 +12,8 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,7 +56,6 @@ public class Calendar extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
                 addTasks();
             }
         });
@@ -67,15 +68,15 @@ public class Calendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                String date = (i1 + 1) + "/" + i2 + "/" + i;
+                String date = String.format("%02d", (i1 + 1)) + "/" + String.format("%02d", i2) + "/" + i;
                 myDate.setText(date);
                 inputDay.setText(date);
             }
         });
     }
     //open new dialog
-    public void openDialog() {
-        DialogBox dialogBox = new DialogBox("Information", "Your date has been saved");
+    public void openDialog(String title, String message) {
+        DialogBox dialogBox = new DialogBox(title, message);
         dialogBox.show(getSupportFragmentManager(), "Dialog");
     }
     //add task
@@ -90,9 +91,13 @@ public class Calendar extends AppCompatActivity {
 
             CalTask tasks = new CalTask(id, taskName,  titleName,  dayName);
             databaseReference.child(id).setValue(tasks);
+            openDialog("Information", "Your Event has been Saved!");
             inputTitle.setText(" ");
             inputDay.setText(" ");
             inputTask.setText(" ");
+        }
+        else {
+            openDialog("Alert", "You must enter an Event!");
         }
     }
 }

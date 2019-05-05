@@ -1,5 +1,6 @@
 package com.team7.hadcontrolpanel;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -93,7 +94,9 @@ public class DataRetrived extends AppCompatActivity {
         final EditText editTextTask = (EditText) dialogView.findViewById(R.id.editTextTask);
         final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
         final EditText editTextDate = (EditText) dialogView.findViewById(R.id.editTextDate);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.btnUpdate);
+        final Button btnUpdate = (Button) dialogView.findViewById(R.id.btnUpdate);
+        final Button btnDelete = (Button) dialogView.findViewById(R.id.btnDelete);
+
 
         editTextTask.setText(task);
         editTextDate.setText(date);
@@ -103,7 +106,7 @@ public class DataRetrived extends AppCompatActivity {
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String task = editTextTask.getText().toString();
@@ -116,8 +119,38 @@ public class DataRetrived extends AppCompatActivity {
                 }
                 updateCalendar(taskID, title, task, date);
                 alertDialog.dismiss();
-//                finish();
-//                startActivity(getIntent());
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String task = editTextTask.getText().toString();
+                String title = editTextTitle.getText().toString();
+                String date = editTextDate.getText().toString();
+                new AlertDialog.Builder(DataRetrived.this).
+                        setMessage("Are you sure you want to DELETE this event?").
+                        setCancelable(true).
+                        setPositiveButton(
+                                "Yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        deleteEvent(taskID);
+                                        dialog.dismiss();
+                                    }
+                                }
+                        ).
+                        setNegativeButton(
+                                "No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                }
+                        ).
+                        create().
+                        show();
+                alertDialog.dismiss();
             }
         });
     }
@@ -130,8 +163,19 @@ public class DataRetrived extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         CalTask ct = new CalTask(id, task, title, date);
         databaseReference.setValue(ct);
-        Toast.makeText(this, "Task Updated Successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Event Updated Successfully", Toast.LENGTH_LONG).show();
         return true;
+    }
+
+    //delete task
+    public void deleteEvent(String taskID) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Tasks").child(taskID);
+
+        DatabaseReference deleteEvent = databaseReference;
+
+        deleteEvent.removeValue();
+
+        Toast.makeText(this, "Event Deleted Successfully", Toast.LENGTH_LONG).show();
     }
 }
 

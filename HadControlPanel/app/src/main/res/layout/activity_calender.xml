@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".Calendar">
 
 
@@ -20,20 +19,16 @@
         android:text="Mark your date!"
         android:textAlignment="center"
         android:textColor="#FFF"
-        android:textSize="23sp"
-
-        />
+        android:textSize="23sp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_marginLeft="15dp"
-        android:background="@drawable/bg_calen">
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
 
         <CalendarView
             android:id="@+id/Calenderview"
-            android:layout_width="wrap_content"
-            android:layout_height="320dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         </CalendarView>
 
@@ -49,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Title"
-            android:textColorHint=" #FFF" />
+            android:textColorHint="#FFF" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -82,24 +77,18 @@
 
     <Button
         android:id="@+id/btnSave"
-
-        android:layout_width="152dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="34dp"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:text="Save Your Task!"
         android:textColor="#FFF" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/viewCal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:visibility="visible"
-        app:fabSize="auto"
-        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-
+        android:layout_gravity="start|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar"/>
 
 </LinearLayout>

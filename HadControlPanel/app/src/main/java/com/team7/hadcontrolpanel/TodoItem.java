@@ -57,7 +57,7 @@ public class TodoItem extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Item item = itemList.get(position);
-                deleteItem(item.getItemID());
+                completedItem(item.getItemID());
             }
         });
     }
@@ -104,13 +104,13 @@ public class TodoItem extends AppCompatActivity {
         }
     }
 
-    private void deleteItem(String itemID) {
+    private void completedItem(String itemID) {
         firebase = FirebaseDatabase.getInstance();
         dbReference = firebase.getReference("ToDo List").child(itemID);
 
-        DatabaseReference deleteItem = dbReference;
+        DatabaseReference completedItem = dbReference;
 
-        deleteItem.removeValue();
+        completedItem.removeValue();
 
         Toast.makeText(this, "Todo Item is Completed", Toast.LENGTH_LONG).show();
 
