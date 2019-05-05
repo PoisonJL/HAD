@@ -87,9 +87,9 @@ public class Calendar extends AppCompatActivity {
             CalEvent events = new CalEvent(id, title, date, event);
             databaseReference.child(id).setValue(events);
             openDialog("Information", "Your Event has been Saved!");
-            txtTitle.setText(" ");
-            txtDate.setText(" ");
-            txtEvent.setText(" ");
+            txtTitle.setText("");
+            txtDate.setText("");
+            txtEvent.setText("");
         }
         else if(TextUtils.isEmpty(title)) {
             openDialog("Alert", "You must enter a Title!");
