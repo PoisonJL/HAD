@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class TaskInfoAdapter extends ArrayAdapter<CalTask> {
 
-
     //declear variablbes
     private Activity context;
     private List<CalTask>tasksList;

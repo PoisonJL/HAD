@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".DataRetrived">
+    tools:context=".DataRetrived"
+    app:title="132">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
