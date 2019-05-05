@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -32,36 +34,23 @@
                 tools:layout_editor_absoluteY="8dp">
 
             </android.support.v7.widget.Toolbar>
+
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/editTextItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal">
+            android:hint="Enter item" />
 
-            <EditText
-                android:id="@+id/editTextItem"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:hint="Enter item" />
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="add" />
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="add" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/itemListView"
-            android:layout_width="match_parent"
-            android:layout_height="611dp"
-            android:layout_marginBottom="12dp" />
+        <include layout="@layout/todoitem_view"/>
 
     </LinearLayout>
 </ScrollView>
