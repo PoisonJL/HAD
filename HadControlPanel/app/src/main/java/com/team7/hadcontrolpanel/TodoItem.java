@@ -67,6 +67,16 @@ public class TodoItem extends AppCompatActivity {
                 completedItem(item.getItemID()); // calling completedItem method
             }
         });
+
+        itemListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //get the item from the list
+                Item item = itemList.get(position);
+                completedItem(item.getItemID()); // calling completedItem method
+                return false;
+            }
+        });
     }
     /**
      * when the program is started
@@ -109,7 +119,7 @@ public class TodoItem extends AppCompatActivity {
             Toast.makeText(this, "Todo item added", Toast.LENGTH_LONG).show();
         }
         else {
-            // alert user if they are sure to delete or not
+            // alert user the task field cannot be empty
             new AlertDialog.Builder(TodoItem.this).
                     setMessage("You must enter an item").
                     setCancelable(true).
