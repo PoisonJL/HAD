@@ -1,7 +1,7 @@
 package com.team7.hadcontrolpanel;
 
 public class Item {
-    //declare varailbes
+    //declare variables
     private String itemID;
     private String todoItem;
 

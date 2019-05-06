@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 
 
 /**
- *pulic class DialogBox
+ *public class DialogBox
  */
 @SuppressLint("ValidFragment")
 public class DialogBox extends AppCompatDialogFragment {

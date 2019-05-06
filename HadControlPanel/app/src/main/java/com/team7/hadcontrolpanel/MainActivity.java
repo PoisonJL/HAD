@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //declare view variables
-        ImageButton btnCal = findViewById(R.id.Calender);
+        ImageButton btnCal = findViewById(R.id.Calendar);
         ImageButton btnTodo = findViewById(R.id.TodoList);
         FirebaseApp.initializeApp(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("ToDo List");
 
-        //go to todoitem page
+        //go to To-Do item page
         btnTodo.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TodoItem.class));
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // when privacy fab is clicked
+        // when privacy float button is pressed
         fabPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,29 +106,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // go to connecting wifi page
+    // go to Connect to Wi-Fi page
     public void onConnectingWiFiClick(View v) {
         this.startActivity(new Intent(getApplicationContext(), WifiActivity.class));
     }
 
-    //get wifi info
+    //get Wi-Fi info
     public void onGetWiFiInfoClick(View v) {
         getWifiName(this); //calling getWiFiName
     }
 
-    //get wifi name
+    //get Wi-Fi name
     public String getWifiName(Context context) {
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Connected WiFi");
-        // instantiate wifi manager
+        // instantiate Wi-Fi manager
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager.isWifiEnabled()) {
-            //getting wifi info
+            //getting Wi-Fi info
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
-                    //getting ssid
+                    //getting SSID
                     ssid = wifiInfo.getSSID().replace("\"", "");
                     ref.child("SSID").setValue(ssid);
                     Toast.makeText(this, "SSID: " + ssid, Toast.LENGTH_SHORT).show();

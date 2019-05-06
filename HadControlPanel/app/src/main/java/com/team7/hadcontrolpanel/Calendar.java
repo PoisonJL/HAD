@@ -15,7 +15,7 @@ import android.view.View;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-//calender class
+//calendar class
 public class Calendar extends AppCompatActivity {
     //declear variales
     CalendarView calendarView;
@@ -29,27 +29,27 @@ public class Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
+        setContentView(R.layout.activity_calendar);
 
         // Declare view variables
         Button btnSave = (Button) findViewById(R.id.btnSave);
         txtTitle = (EditText) findViewById(R.id.txtTitle);
         txtDate = (EditText) findViewById(R.id.txtDate);
         txtEvent = (EditText) findViewById(R.id.txtEvent);
-        calendarView = (CalendarView) findViewById(R.id.Calenderview);
+        calendarView = (CalendarView) findViewById(R.id.Calendarview);
         myDate = (TextView) findViewById(R.id.myDate);
 
         //Firebase refenerece to specified field
         databaseReference = FirebaseDatabase.getInstance().getReference("Events");
 
         /** When calendar icon is clicked,
-         * go to DataRetrived class,
+         * go to DataRetrieved class,
          * where it shows all the events*/
         viewCal = (FloatingActionButton) findViewById(R.id.viewCal);
         viewCal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent t = new Intent(Calendar.this, DataRetrived.class);
+                Intent t = new Intent(Calendar.this, DataRetrieved.class);
                 startActivity(t);
             }
         });

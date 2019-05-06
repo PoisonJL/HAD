@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:title="132"
-    tools:context=".DataRetrived">
+    tools:context=".DataRetrieved">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

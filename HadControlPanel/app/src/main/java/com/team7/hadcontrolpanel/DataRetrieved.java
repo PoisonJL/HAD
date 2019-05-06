@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRetrived extends AppCompatActivity {
+public class DataRetrieved extends AppCompatActivity {
 
     //declare variables
     private ListView listView;
@@ -36,7 +36,7 @@ public class DataRetrived extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_retrived);
+        setContentView(R.layout.activity_data_retrieved);
         listView = findViewById(R.id.list_view);
         databaseReference = FirebaseDatabase.getInstance().getReference("Events");
 
@@ -71,7 +71,7 @@ public class DataRetrived extends AppCompatActivity {
                     calEventList.add(calEvent);
                 }
                 // caling adapter method
-                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrived.this, calEventList);
+                TaskInfoAdapter taskInfoAdapter = new TaskInfoAdapter(DataRetrieved.this, calEventList);
                 listView.setAdapter(taskInfoAdapter);
             }
 
@@ -139,7 +139,7 @@ public class DataRetrived extends AppCompatActivity {
                 String event = editTextEvent.getText().toString();
 
                 // alert user if they are sure to delete or not
-                new AlertDialog.Builder(DataRetrived.this).
+                new AlertDialog.Builder(DataRetrieved.this).
                         setMessage("Are you sure you want to DELETE this event?").
                         setCancelable(true).
                         setPositiveButton(
@@ -179,7 +179,7 @@ public class DataRetrived extends AppCompatActivity {
     }
 
     /**
-     * update calender with passed in value
+     * update calendar with passed in value
      */
     private boolean updateEvent(String id, String title, String date, String event) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Events").child(id);
@@ -190,7 +190,7 @@ public class DataRetrived extends AppCompatActivity {
     }
 
     /**
-     * update calender with passed in value with passed in unique key
+     * update calendar with passed in value with passed in unique key
      */
     public void deleteEvent(String EventID) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Events").child(EventID);
